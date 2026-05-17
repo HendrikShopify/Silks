@@ -1,0 +1,64 @@
+<localization-form class="inline-block">
+  {%- form 'localization' -%}
+    <div>
+      <h2 class="sr-only" id="HeaderCountryMobileLabel">
+        {{ 'localization.country_label' | t }}
+      </h2>
+      <div class="relative">
+        <button
+          type="button"
+          data-button=""
+          class="py-2 px-4 leading-none rounded-xs bg-gray-100 cursor-pointer"
+          aria-expanded="false"
+        >
+          <span class="text-sm">{{ localization.language.iso_code | upcase }}</span>
+          {{ 'icon-caret.svg' | inline_asset_content }}
+        </button>
+        <div
+          data-panel
+          class="absolute top-full translate-y-1 z-[2] overflow-hidden"
+          hidden
+        >
+          <ul
+            id="{{ localPosition }}List"
+            role="list"
+            class="list-none"
+          >
+            {%- for language in localization.available_languages -%}
+              <li class="flex relative items-center" tabindex="-1">
+                {% if language.iso_code == localization.language.iso_code %}
+                  <span class="absolute h-8/10 rounded-e-sm left-0 w-0.5 bg-black"> </span>
+                {% endif %}
+
+                <a
+                  class="py-2 px-4 leading-none rounded-xs bg-gray-100 cursor-pointer text-sm"
+                  href="#"
+                  hreflang="{{ language.iso_code }}"
+                  lang="{{ language.iso_code }}"
+                  {% if language.iso_code == localization.language.iso_code %}
+                    aria-current="true"
+                  {% endif %}
+                  data-value="{{ language.iso_code }}"
+                >
+                  <span
+                    {% if language.iso_code != localization.language.iso_code %}
+                      class="sr-only"
+                    {% endif %}
+                  ></span>
+                  <span>
+                    {{ language.iso_code | upcase }}
+                  </span>
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      </div>
+      <input
+        type="hidden"
+        name="locale_code"
+        value="{{ localization.language.iso_code }}"
+      >
+    </div>
+  {%- endform -%}
+</localization-form>

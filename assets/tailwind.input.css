@@ -1,0 +1,307 @@
+@import "tailwindcss";
+
+@theme {
+    --font-primary: Inter-Regular, sans-serif;   
+    --font-secondary: Inter-Regular, sans-serif;   
+
+    --color-red-100: #FFEBEE;
+    --color-red-200: #FFCDD2;
+    --color-red-300: #EF9A9A;
+    --color-red-400: #E57373;
+    --color-red-500: #EF5350;
+
+    --color-gray-50: #FBFBFB;
+    --color-gray-100: #EEEEEE;
+    --color-gray-200: #EEEEEE;
+    --color-gray-300: #E0E0E0;
+    --color-gray-400: #BDBDBD;
+    --color-gray-500: #9E9E9E;
+
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+    --text-3xl: 1.875rem;
+    --text-4xl: 2.25rem;
+    --text-5xl: 3rem;
+    --text-6xl: 4rem;
+}
+
+@font-face {
+    font-family: 'Inter-Regular';
+    src: url('./Inter-Regular') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+
+  cart-items[loading] {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+
+/* Layout */
+
+.container {
+    @apply mx-auto w-full max-w-400 px-4
+}
+
+.default-grid {
+    @apply flex flex-col gap-5 lg:grid lg:grid-cols-12
+}
+
+/* Buttons */
+
+.btn {
+    @apply bg-black text-white rounded-xs px-4 py-2 cursor-pointer h-10 inline-flex justify-center gap-2 items-center text-sm min-h-10 border border-black
+}
+
+.btn[disabled] {
+    @apply opacity-30 cursor-not-allowed
+}
+
+.btn__icon {
+    @apply size-4
+}
+
+
+/* Forms */
+
+.form__wrap {
+    @apply flex flex-col gap-4
+}
+
+.field {
+    @apply flex flex-col-reverse gap-1
+}
+
+.field input {
+    @apply border border-gray-100 bg-gray-100 px-4 py-2 focus:border-black focus:border-1 outline-none min-h-11 rounded-xs;
+}
+
+.input {
+    @apply border border-gray-100 bg-gray-100 px-4 py-2 focus:border-black focus:border-1 outline-none min-h-11 rounded-xs;
+}
+
+.field textarea {
+    @apply border border-gray-100 bg-gray-100 px-4 py-2 focus:border-black focus:border-1 outline-none rounded-xs resize-none;
+}
+
+.field .select {
+    @apply relative border rounded-xs border-gray-300 outline-none appearance-none flex justify-between items-center focus-within:border-black focus-within:border-1 overflow-hidden;
+}
+
+select {
+    @apply appearance-none focus:outline-none w-full h-full bg-gray-100 px-4 py-2 outline-none
+}
+
+.select__icon {
+    @apply absolute right-0 flex items-center justify-center pr-2 size-8
+}
+
+.field label {
+    @apply text-sm
+}
+
+/* Form errors */
+
+.field .error {
+    @apply bg-red-50 border-red-300
+}
+
+.field__error {
+    @apply inline-flex flex-row items-center gap-2 py-2 px-4 bg-red-50 text-red-400 order-first rounded-xs
+} 
+
+.form__error-wrap {
+   @apply flex flex-col gap-3 mb-4
+}
+
+.form__error-heading {
+    @apply flex items-center gap-2 text-xl
+}
+
+
+.form__error-icon {
+   @apply size-5 text-red-400
+}
+
+.form__error-list-item {
+    @apply before:content-['•'] after:ml-4 flex gap-1
+}
+
+/* Quantity */
+
+.quanity__wrap {
+    @apply flex items-center bg-gray-100 rounded-xs
+}
+
+.quantity__button {
+    @apply inline-flex items-center justify-center w-6 h-6 rounded-md cursor-pointer p-1.5 disabled:opacity-50 disabled:cursor-not-allowed
+}
+
+.quantity__input {
+    @apply w-4 text-center border-0 text-sm focus:ring-0 focus:outline-none appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none
+}
+
+.quanity__wrap.is-large .quantity__button {
+    @apply !size-10
+}
+
+
+.quanity__wrap.is-large .quantity__button {
+    @apply w-5 p-3
+}
+
+
+/* Facets */
+
+.facets__details {
+    @apply border-b-1 border-gray-100
+}
+
+.facets__summary {
+    @apply flex justify-between items-center cursor-pointer py-3 text-base
+}
+
+.facets__content {
+    @apply mb-5
+}
+
+.facets__swatch {
+    @apply h-5 w-5 rounded-xs inline-block peer-checked:border-black peer-checked:border-1 flex-none
+}
+
+.facets__label {
+    @apply flex items-center gap-2 text-sm w-full
+}
+
+.facets__disabled {
+    @apply opacity-50 cursor-not-allowed
+}
+
+.facets__text {
+    @apply text-sm
+}
+
+.facets__option-count {
+    @apply text-sm ml-auto 
+}
+
+.facets__reset-button {
+    @apply text-sm hover:underline 
+}
+
+.facets__active-tag {
+    @apply bg-gray-100 rounded-xs flex items-center gap-1 text-sm py-1 px-2 hover:bg-gray-200
+}
+
+.facets__remove-all {
+    @apply text-sm underline
+}
+
+.facets__show-more-button { 
+    @apply inline-flex items-center px-3 py-2 gap-2 text-sm bg-gray-100
+}
+
+/* Buttons */
+
+.header__icon-button {
+    @apply flex items-center justify-center w-9 h-9 hover:bg-gray-100 flex-none rounded-xs p-2
+}
+
+.header__item-count {
+    @apply absolute top-0 right-0 -translate-y-[30%] translate-x-[30%] bg-black text-white rounded-full px-2 py-1 text-xs z-10  w-6 flex items-center justify-center aspect-square 
+}
+
+
+/* Checkboxes */
+
+.checkbox__custom {
+    @apply relative flex-none w-5 h-5 p-0.5 border-1 border-black rounded-xs flex items-center justify-center transition-all duration-50 peer-checked:bg-black peer-checked:border-black text-transparent peer-checked:text-white
+}
+
+.checkbox__icon {
+    @apply w-4 h-4
+}
+
+/* Variant pills */
+
+.variant__legend {
+    @apply text-sm mb-1
+}
+
+.variant__pill {
+    @apply border peer-checked:border-black peer-checked:bg-black peer-checked:text-white px-3 py-2
+    w-full h-full flex items-center justify-center text-sm rounded-xs leading-none
+    transition-all duration-200 relative overflow-hidden cursor-pointer
+}
+
+.variant__swatch {
+    @apply h-8 w-8 border-1 border-transparent peer-checked:!border-black transition-all overflow-hidden inline-flex items-center rounded-xs
+}
+
+.variant__swatch-disabled {
+    @apply opacity-50 cursor-not-allowed relative before:content-[''] before:absolute before:w-full before:bg-black before:h-[1px] before:-rotate-45
+}
+
+
+.variant__radio-disabled {
+    @apply opacity-50 cursor-not-allowed relative before:content-[''] before:absolute before:w-full before:left-0 before:scale-x-150 before:top-1/2 before:right-0 before:border-t before:border-inherit before:rotate-[-15deg]
+}
+
+img {
+    @apply !w-full !h-full !object-cover
+}
+
+
+/* Line item */ 
+
+.line-item__discount {
+    @apply inline-flex items-center gap-2 px-1.5 py-1 bg-gray-100 text-gray-800 text-xs rounded-xs 
+}
+
+/* Icons */
+
+.icon-5 {
+    @apply w-5 h-5 inline-block pointer-events-none
+}
+
+/* Grids */
+
+.product-grid {
+    @apply grid gap-x-2 gap-y-5 grid-rows-[auto_auto] grid-cols-[repeat(auto-fill,minmax(15rem,1fr))] auto-cols-fr
+}
+
+.article-grid {
+    @apply grid gap-x-2 gap-y-5 grid-rows-[auto_auto] grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] auto-cols-fr
+}
+
+/* Footer */
+
+.social-icon {
+    @apply w-6 h-6 inline-block
+}
+
+/* Wishlist */
+
+.wishlist__icon {
+    @apply h-5 w-5 transition-colors duration-300 stroke-black fill-transparent;
+  }
+  
+  .wishlist__active .wishlist__icon {
+    @apply fill-black;
+  }
+
+  
+
+
+/* Modals */
+
+.modal__background {
+    @apply bg-black opacity-30 absolute inset-0  hover:opacity-35
+}

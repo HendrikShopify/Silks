@@ -1,0 +1,67 @@
+<script src="{{ 'facets.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'show-more.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign sort_by = results.sort_by | default: results.default_sort_by
+  assign total_active_values = 0
+  assign default_presentation = 'text'
+  if results.url
+    assign results_url = results.url
+  else
+    assign terms = results.terms | escape
+    assign results_url = '?q=' | append: terms | append: '&options%5Bprefix%5D=last&sort_by=' | append: sort_by
+  endif
+-%}
+
+<div class="">
+  <facet-filters-form class="w-full">
+    <form id="FacetFiltersForm" class="space-y-6">
+      {% comment %} Search input {% endcomment %}
+      {%- if results.terms -%}
+        <input
+          type="hidden"
+          name="q"
+          value="{{ results.terms | escape }}"
+        >
+        <input
+          name="options[prefix]"
+          type="hidden"
+          value="last"
+        >
+      {%- endif -%}
+
+      {% comment %} Heading {% endcomment %}
+      <div id="FacetsWrapperDesktop" class="">
+        {%- if results.filters != empty -%}
+          <h2
+            class="sr-only"
+            id="verticalTitle"
+            tabindex="-1"
+          >
+            {{ 'products.facets.filter_by_label' | t }}
+          </h2>
+        {%- endif -%}
+
+        {% comment %} Filters {% endcomment %}
+        <div class="flex flex-col space-y-3">
+          {%- for filter in results.filters -%}
+            {% case filter.type %}
+              {% when 'boolean', 'list' %}
+                {% render 'facets__boolean-list', filter: filter, forloop: forloop %}
+              {% when 'price_range' %}
+                {% render 'facets__price-range', filter: filter, forloop: forloop %}
+            {% endcase %}
+          {%- endfor -%}
+        </div>
+      </div>
+
+      {% if results.current_vendor or results.current_type %}
+        <input
+          type="hidden"
+          name="q"
+          value="{{ results.current_vendor }}{{ results.current_type }}"
+        >
+      {% endif %}
+    </form>
+  </facet-filters-form>
+</div>

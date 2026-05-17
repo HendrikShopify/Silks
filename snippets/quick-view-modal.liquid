@@ -1,0 +1,29 @@
+<script src="{{ 'media-slider.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'quick-view.js' | asset_url }}" defer="defer"></script>
+
+<quick-view class="hidden fixed flex justify-end inset-0 z-500">
+  <div id="QuickView-Overlay" class="absolute inset-0 bg-black"></div>
+  <div id="QuickView" class="flex w-full justify-end">
+    <div
+      data-quick-view-modal
+      class="bg-white h-full w-full max-w-md flex flex-col relative"
+      role="dialog"
+      aria-label="{{ 'products.product.choose_product_options' | t: product_name: card_product.title | escape }}"
+      aria-modal="true"
+      aria-label="{{ 'sections.cart.title' | t }}"
+      tabindex="-1"
+    >
+      <button
+        id="ModalClose-{{ card_product.id }}"
+        type="button"
+        class="absolute w-4 m-5 left-0 top-0 z-10"
+        data-quick-view-close
+        aria-label="{{ 'accessibility.close' | t }}"
+      >
+        {{ 'icon__close.svg' | inline_asset_content }}
+      </button>
+
+      <div data-quick-view-inner class="h-full overflow-auto"></div>
+    </div>
+  </div>
+</quick-view>

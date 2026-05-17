@@ -1,0 +1,59 @@
+<quantity-input>
+  <div class="flex flex-col items-end gap-2">
+    <label class="sr-only" for="Quantity-{{ item.index | plus: 1 }}">
+      {{ 'products.product.quantity.label' | t }}
+    </label>
+    <div class="quanity__wrap">
+      <button class="quantity__button" name="minus" type="button">
+        <span class="sr-only">
+          {{- 'products.product.quantity.decrease' | t: product: item.product.title | escape -}}
+        </span>
+        <span class="pointer-events-none">
+          {{- 'icon__min.svg' | inline_asset_content -}}
+        </span>
+      </button>
+      <input
+        class="quantity__input"
+        data-quantity-variant-id="{{ item.variant.id }}"
+        type="number"
+        name="updates[]"
+        value="{{ item.quantity }}"
+        data-cart-quantity="{{ cart | item_count_for_variant: item.variant.id }}"
+        min="1"
+        aria-label="{{ 'products.product.quantity.input_label' | t: product: item.product.title | escape }}"
+        id="Quantity-{{ item.index | plus: 1 }}"
+        data-index="{{ item.index | plus: 1 }}"
+      >
+      <button class="quantity__button" name="plus" type="button">
+        <span class="sr-only">
+          {{- 'products.product.quantity.increase' | t: product: item.product.title | escape -}}
+        </span>
+        <span class="pointer-events-none">
+          {{- 'icon__plus.svg' | inline_asset_content -}}
+        </span>
+      </button>
+    </div>
+    <cart-remove-button
+      id="Remove-{{ item.index | plus: 1 }}"
+      data-index="{{ item.index | plus: 1 }}"
+    >
+      <a
+        href="{{ item.url_to_remove }}"
+        class="text-sm underline"
+        aria-label="{{ 'sections.cart.remove_title' | t: title: item.title | escape }}"
+      >
+        <span class="">
+          {{ 'sections.cart.remove' | t }}
+          {% comment %} {{- 'icon__remove.svg' | inline_asset_content -}} {% endcomment %}
+        </span>
+      </a>
+    </cart-remove-button>
+  </div>
+
+  <div class="" id="Line-item-error-{{ item.index | plus: 1 }}" role="alert">
+    <small data-cart-item-error-text class="peer"></small>
+    <span class="h-3 w-3 peer-empty:hidden items-center inline-flex">
+      {{- 'icon__error.svg' | inline_asset_content -}}
+    </span>
+  </div>
+</quantity-input>

@@ -1,0 +1,50 @@
+{% render 'breadcrumbs' %}
+<article class="container section-padding-sm !pt-0">
+  <div class="w-full rounded-xs overflow-hidden">
+    <img
+      srcset="
+        {% if article.image.width >= 350 %}{{ article.image | image_url: width: 350 }} 350w,{% endif %}
+        {% if article.image.width >= 750 %}{{ article.image | image_url: width: 750 }} 750w,{% endif %}
+        {% if article.image.width >= 1100 %}{{ article.image | image_url: width: 1100 }} 1100w,{% endif %}
+        {% if article.image.width >= 1500 %}{{ article.image | image_url: width: 1500 }} 1500w,{% endif %}
+        {% if article.image.width >= 2200 %}{{ article.image | image_url: width: 2200 }} 2200w,{% endif %}
+        {% if article.image.width >= 3000 %}{{ article.image | image_url: width: 3000 }} 3000w,{% endif %}
+        {{ article.image | image_url }} {{ article.image.width }}w
+      "
+      sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 }}px, (min-width: 750px) calc(100vw - 10rem), 100vw"
+      src="{{ article.image | image_url: width: 1100 }}"
+      loading="eager"
+      fetchpriority="high"
+      width="{{ article.image.width }}"
+      height="{{ article.image.height }}"
+      alt="{{ article.image.alt | escape }}"
+    >
+  </div>
+
+  <div class="default-grid">
+    <div class="col-span-6 col-start-3">
+      <header class="">
+        <h1 class="h1 my-8">
+          {{ article.title | escape }}
+        </h1>
+      </header>
+
+      <div class="rich-text">
+        {{ article.content }}
+      </div>
+
+      <div class="">
+        <a href="{{ blog.url }}" class="btn">
+          <span class="btn__icon">
+            {{- 'icon__arrow-left.svg' | inline_asset_content -}}
+          </span>
+          {{ 'blogs.article.back_to_blog' | t: title: blog.title | escape }}
+        </a>
+      </div>
+    </div>
+  </div>
+</article>
+
+<script type="application/ld+json">
+  {{ article | structured_data }}
+</script>

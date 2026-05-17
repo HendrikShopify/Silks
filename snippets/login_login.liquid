@@ -1,0 +1,97 @@
+<h1 class="h2 mb-5 peer-target:hidden" id="login" tabindex="-1">
+  {{ 'customer.login_page.title' | t }}
+</h1>
+<div class="peer-target:hidden">
+  {%- form 'customer_login', novalidate: 'novalidate', class: 'form__wrap' -%}
+    {%- if form.errors -%}
+      <div class="form__error-wrap">
+        <h2 class="form__error-heading" tabindex="-1" autofocus>
+          <span class="sr-only">{{ 'accessibility.error' | t }} </span>
+          <span class="form__error-icon">
+            {{- 'icon__error.svg' | inline_asset_content -}}
+          </span>
+          {{ 'templates.contact.form.error_heading' | t }}
+        </h2>
+        <div class="form__error-list-item">
+          {{ form.errors | default_errors }}
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- if shop.features.login_with_shop_classic_customer_accounts? -%}
+      <section name="sign-in-with-shop-provider">
+        {{ shop | login_button: hide_button: hide_shop_login_button }}
+
+        {%- unless hide_shop_login_button -%}
+          <p>
+            {{ 'customer.login_page.alternate_provider_separator' | t }}
+          </p>
+        {%- endunless -%}
+      </section>
+    {%- endif -%}
+
+    <div class="field">
+      <input
+        type="email"
+        name="customer[email]"
+        id="CustomerEmail"
+        autocomplete="email"
+        autocorrect="off"
+        autocapitalize="off"
+        {% if form.errors contains 'form' %}
+          aria-invalid="true"
+          class="error"
+        {% endif %}
+        placeholder="{{ 'customer.login_page.email' | t }}"
+      >
+      <label for="CustomerEmail">
+        {{ 'customer.login_page.email' | t }}
+      </label>
+    </div>
+    {%- if form.password_needed -%}
+      <div class="field">
+        <input
+          type="password"
+          value=""
+          name="customer[password]"
+          id="CustomerPassword"
+          autocomplete="current-password"
+          {% if form.errors contains 'form' %}
+            class="error"
+            aria-invalid="true"
+          {% endif %}
+          placeholder="{{ 'customer.login_page.password' | t }}"
+        >
+        <label for="CustomerPassword">
+          {{ 'customer.login_page.password' | t }}
+        </label>
+      </div>
+
+      <div class="flex items-center justify-end gap-4 text-sm">
+        <a class="underline" href="#recover">
+          {{ 'customer.login_page.forgot_password' | t }}
+        </a>
+
+        <button class="btn">
+          {{ 'customer.login_page.sign_in' | t }}
+        </button>
+      </div>
+    {%- endif -%}
+
+    <a class="underline text-sm" href="{{ routes.account_register_url }}">
+      {{ 'customer.login_page.create_account' | t }}
+    </a>
+  {%- endform -%}
+</div>
+
+{%- if shop.checkout.guest_login -%}
+  <div>
+    <h2>{{ 'customer.login_page.guest_title' | t }}</h2>
+
+    {%- form 'guest_login' -%}
+      <button>
+        {{ 'customer.login_page.guest_continue' | t }}
+      </button>
+    {%- endform -%}
+  </div>
+{%- endif -%}

@@ -1,0 +1,80 @@
+<div id="main-cart" class="group {% if cart == empty %}is-empty{% endif %}">
+  <div class="container section-padding-sm">
+    <div class="default-grid">
+      <div class="col-start-2 col-span-4">
+        <div>
+          <h1 class="text-xl mb-8">Your cart</h1>
+        </div>
+
+        {% if cart == empty %}
+          <div>
+            <h1 class="text-xl mb-3">Your cart is empty</h1>
+            <a href="{{ routes.all_products_collection_url }}" class="btn"> Continue Shopping </a>
+          </div>
+        {% endif %}
+
+        <form action="{{ routes.cart_url }}" class="block group-[.is-empty]:hidden" method="post" id="cart">
+          <div>
+            <cart-items>
+              {%- if cart != empty -%}
+                <ul class="space-y-5">
+                  {%- for item in cart.items -%}
+                    {% render 'cart-line-item', item: item %}
+                  {%- endfor -%}
+                </ul>
+              {%- endif -%}
+            </cart-items>
+
+            <div id="cart-page-error"></div>
+          </div>
+
+          <p class="sr-only" id="cart-live-region-text" aria-live="polite" role="status"></p>
+
+          <p
+            class="sr-only"
+            id="shopping-cart-line-item-status"
+            aria-live="polite"
+            aria-hidden="true"
+            role="status"
+          >
+            Loading...
+          </p>
+        </form>
+      </div>
+
+      <div
+        class="group {% if cart == empty %}is-empty{% endif %} col-start-8 col-span-4"
+        id="main-cart-footer"
+      >
+        <div class="block group-[.is-empty]:hidden">
+          {% comment %} {% render 'cart__note' %} {% endcomment %}
+
+          <h2 class="text-xl mb-8">Summary</h2>
+
+          <div class="flex flex-col gap-5">
+            {% render 'free-shipping-bar' %}
+
+            <div>
+              {% render 'cart__totals' %}
+            </div>
+
+            <div>
+              <button
+                type="submit"
+                id="checkout"
+                class="btn w-full"
+                name="checkout"
+                {% if cart == empty %}
+                  disabled
+                {% endif %}
+                form="cart"
+              >
+                Checkout
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

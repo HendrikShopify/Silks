@@ -1,0 +1,19 @@
+<details id="">
+  <summary>
+    <span class="summary__title">
+      {{ 'sections.cart.note' | t }}
+      <span class="h-4 w-4 inline-block">
+        {{- 'icon__chevron-drown.svg' | inline_asset_content -}}
+      </span>
+    </span>
+  </summary>
+  <cart-note class="">
+    <label class="sr-only" for="CartDrawer-Note">{{ 'sections.cart.note' | t }}</label>
+    <textarea
+      id="CartDrawer-Note"
+      class=""
+      name="note"
+      placeholder="{{ 'sections.cart.note' | t }}"
+    >{{ cart.note }}</textarea>
+  </cart-note>
+</details>

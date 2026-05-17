@@ -1,0 +1,43 @@
+<div class="flex flex-row flex-grow gap-1">
+  <div class="relative flex w-full justify-end items-center gap-1">
+    <input
+      class="[&::-webkit-search-cancel-button]:hidden input w-full"
+      id="{{ input_id }}"
+      type="search"
+      name="q"
+      value="{{ search.terms | escape }}"
+      placeholder="{{ 'general.search.search' | t }}"
+      {%- if settings.predictive_search_enabled -%}
+        role="combobox"
+        aria-expanded="false"
+        aria-owns="predictive-search-results"
+        aria-controls="predictive-search-results"
+        aria-haspopup="listbox"
+        aria-autocomplete="list"
+        autocorrect="off"
+        autocomplete="off"
+        autocapitalize="off"
+        spellcheck="false"
+      {%- endif -%}
+    >
+    <label class="sr-only" for="{{ input_id }}">{{ 'general.search.search' | t }}</label>
+    <input type="hidden" name="options[prefix]" value="last">
+    <button
+      type="reset"
+      class="absolute pr-4 flex items-center {% if search.terms == blank %}hidden{% endif %}"
+      aria-label="{{ 'general.search.reset' | t }}"
+    >
+      <span class="icon-5">
+        {{- 'icon__close.svg' | inline_asset_content -}}
+      </span>
+    </button>
+  </div>
+  <button
+    class="w-11 h-11 flex items-center justify-center bg-black text-white flex-none rounded-xs"
+    aria-label="{{ 'general.search.search' | t }}"
+  >
+    <span class="icon-5">
+      {{- 'icon__search.svg' | inline_asset_content -}}
+    </span>
+  </button>
+</div>

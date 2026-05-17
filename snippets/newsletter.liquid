@@ -1,0 +1,69 @@
+<div class="">
+  <h2 class="h5 mb-5">{{ 'newsletter.title' | t }}</h2>
+  {%- form 'customer', id: 'ContactFooter', class: 'footer__newsletter newsletter-form', class: 'flex' -%}
+    <input type="hidden" name="contact[tags]" value="newsletter">
+    <div class="">
+      <div class="field">
+        <div class="flex items-center gap-1">
+          <input
+            id="NewsletterForm--{{ section.id }}"
+            type="email"
+            name="contact[email]"
+            class=""
+            value="{{ form.email }}"
+            aria-required="true"
+            autocorrect="off"
+            autocapitalize="off"
+            autocomplete="email"
+            {% if form.errors %}
+              class="error"
+              autofocus
+              aria-invalid="true"
+              aria-describedby="ContactFooter-error"
+            {% elsif form.posted_successfully? %}
+              aria-describedby="ContactFooter-success"
+            {% endif %}
+            placeholder="{{ 'newsletter.label' | t }}"
+            required
+          >
+          <button
+            class="flex justify-center items-center h-11 w-11 bg-black text-white rounded-sm"
+            type="submit"
+            name="commit"
+            id="Subscribe"
+            aria-label="{{ 'newsletter.button_label' | t }}"
+          >
+            <span class="icon-5">
+              {{- 'icon__chevron-right.svg' | inline_asset_content -}}
+            </span>
+          </button>
+        </div>
+        <label class="sr-only" for="NewsletterForm--{{ section.id }}">
+          {{ 'newsletter.label' | t }}
+        </label>
+      </div>
+      {%- if form.errors -%}
+        <small class="field__error" id="ContactFooter-error">
+          <span class="icon-5">
+            {{- 'icon__error.svg' | inline_asset_content -}}
+          </span>
+          {{- form.errors.translated_fields.email | capitalize }}
+          {{ form.errors.messages.email -}}
+        </small>
+      {%- endif -%}
+    </div>
+    {%- if form.posted_successfully? -%}
+      <h3
+        class=""
+        id="ContactFooter-success"
+        tabindex="-1"
+        autofocus
+      >
+        <span class="icon-5">
+          {{- 'icon__success.svg' | inline_asset_content -}}
+        </span>
+        {{- 'newsletter.success' | t }}
+      </h3>
+    {%- endif -%}
+  {%- endform -%}
+</div>

@@ -1,0 +1,31 @@
+<footer class="bg-gray-50 pt-25">
+  <div class="container">
+    <div class="grid grid-cols-12 gap-6">
+      <div class="col-span-12 md:col-span-3">
+        {% render 'newsletter' %}
+      </div>
+
+      <div class="col-span-12 flex flex-row  gap-35 md:col-span-6">
+        {% render 'footer__linklist' %}
+        {% render 'footer__linklist' %}
+        <div>
+          {% render 'footer__socials' %}
+        </div>
+      </div>
+
+      <div class="col-span-12 flex gap-4 text-sm pb-3 mt-20">
+        <div>&copy; {{ 'now' | date: '%Y' }}, {{ shop.name | link_to: routes.root_url }}</div>
+        <nav class="inline-flex" aria-label="Footer Links">
+          <ul class="flex gap-4 ">
+            <li>
+              <a href="{{ shop.privacy_policy.url }}">{{ 'general.policies.privacy_policy' | t }}</a>
+            </li>
+            <li>
+              <a href="{{ shop.terms_of_service.url }}">{{ 'general.policies.terms_of_service' | t }}</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</footer>

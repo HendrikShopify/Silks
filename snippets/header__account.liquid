@@ -1,0 +1,19 @@
+{%- if shop.customer_accounts_enabled -%}
+  <a
+    href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
+    class="header__icon-button"
+    rel="nofollow"
+  >
+    <span>{{ 'icon__account.svg' | inline_asset_content }}</span>
+
+    <span class="sr-only">
+      {%- liquid
+        if customer
+          echo 'customer.account_fallback' | t
+        else
+          echo 'customer.log_in' | t
+        endif
+      -%}
+    </span>
+  </a>
+{%- endif -%}

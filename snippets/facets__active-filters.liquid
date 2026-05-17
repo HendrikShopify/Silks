@@ -1,0 +1,50 @@
+{%- for filter in results.filters -%}
+  {% liquid
+    assign total_active_values = total_active_values | plus: filter.active_values.size
+  %}
+{%- endfor -%}
+
+<div data-active-facets class="">
+  {% if total_active_values > 0 %}
+    <div class="flex flex-wrap gap-2 items-center">
+      {%- for filter in results.filters -%}
+        {%- for value in filter.active_values -%}
+          <facet-remove class="facets__active-tag">
+            <a href="{{ value.url_to_remove }}">
+              <span class="">
+                {{ filter.label | escape }}: {{ value.label | escape }}
+                <span class="sr-only">{{ 'products.facets.clear_filter' | t }}</span>
+              </span>
+            </a>
+            <span class="w-2">
+              {{- 'icon__close.svg' | inline_asset_content -}}
+            </span>
+          </facet-remove>
+        {%- endfor -%}
+        {% if filter.type == 'price_range' %}
+          {% assign min = filter.min_value.value %}
+          {% assign max = filter.max_value.value %}
+          {%- if min != null or max != null -%}
+            <facet-remove class="facets__active-tag">
+              <a
+                href="{{ filter.url_to_remove }}"
+                class=""
+              >
+                <span class="">
+                  {{ min | default: 0 | money }} - {{ max | default: filter.range_max | money }}
+                  <span class="sr-only">{{ 'products.facets.clear_filter' | t }}</span>
+                </span>
+              </a>
+            </facet-remove>
+          {%- endif -%}
+        {% endif %}
+      {%- endfor -%}
+
+      <facet-remove class="facets__remove-all">
+        <a href="{{ results_url }}" class="">
+          <span>{{ 'products.facets.clear_all' | t }}</span>
+        </a>
+      </facet-remove>
+    </div>
+  {% endif %}
+</div>

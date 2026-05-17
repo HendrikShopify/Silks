@@ -1,0 +1,50 @@
+{%- if predictive_search.resources.articles.size > 0 or predictive_search.resources.pages.size > 0 -%}
+  <div class="">
+    <h2
+      id="predictive-search-pages-desktop"
+      class="text-sm mb-5"
+    >
+      {{- 'templates.search.pages' | t -}}
+    </h2>
+    <ul
+      id="predictive-search-results-pages-list-desktop"
+      class=""
+      role="group"
+      aria-labelledby="predictive-search-pages-desktop"
+    >
+      {%- for page in predictive_search.resources.pages -%}
+        <li
+          id="predictive-search-option-page-desktop-{{ forloop.index }}"
+          class="group"
+          role="option"
+          aria-selected="false"
+        >
+          <a
+            href="{{ page.url }}"
+            class="flex items-center gap-5 p-3 text-gray-900 hover:text-gray-900 focus:outline-none focus:bg-gray-50 group-aria-selected:bg-gray-50 hover:bg-gray-50"
+            tabindex="-1"
+          >
+            <p class="text-sm font-medium">{{ page.title | escape }}</p>
+          </a>
+        </li>
+      {%- endfor -%}
+
+      {%- for article in predictive_search.resources.articles -%}
+        <li
+          id="predictive-search-option-article-desktop-{{ forloop.index }}"
+          class="group"
+          role="option"
+          aria-selected="false"
+        >
+          <a
+            href="{{ article.url }}"
+            class="flex items-center gap-5 p-3 text-gray-900 hover:text-gray-900 focus:outline-none focus:bg-gray-50 group-aria-selected:bg-gray-50 hover:bg-gray-50"
+            tabindex="-1"
+          >
+            <p class="text-sm font-medium">{{ article.title | escape }}</p>
+          </a>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+{%- endif -%}

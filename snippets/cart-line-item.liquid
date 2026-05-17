@@ -1,0 +1,35 @@
+<li class="flex gap-5" data-cart-item id="CartItem-{{ item.index | plus: 1 }}">
+  <div class="">
+    {% if item.image %}
+      <a href="{{ item.url }}" class="sr-only" aria-hidden="true" tabindex="-1"> </a>
+      <div class="w-35 aspect-square rounded-xs overflow-hidden">
+        <img
+          src="{{ item.image | image_url: width: 280 }}"
+          class=""
+          alt="{{ item.image.alt | escape }}"
+          loading="lazy"
+          width="140"
+          height="140"
+        >
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="flex flex-col gap-3 flex-grow">
+    <div class="">
+      <a class="" href="{{ item.url }}" class="">{{ item.product.title | escape }}</a>
+    </div>
+
+    <div class="text-sm space-y-2">
+      {% render 'cart-line-item__price', item: item %}
+      {% render 'cart-line-item__discounts', item: item %}
+    </div>
+
+    <div class="text-sm">
+      {% render 'cart-line-item__option-values', item: item %}
+    </div>
+    {% comment %} {% render 'cart-line-item__total-price', item: item %} {% endcomment %}
+  </div>
+
+  {% render 'cart-line-item__quantity-input', item: item %}
+</li>

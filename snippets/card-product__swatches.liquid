@@ -1,0 +1,16 @@
+{%- unless product.has_only_default_variant -%}
+  <ul class="flex flex-wrap gap-1 z-30">
+    {%- for option in product.options_with_values -%}
+      {%- liquid
+        assign swatch_count = option.values | map: 'swatch' | compact | size
+        assign picker_type = ''
+        if swatch_count > 0 and block.settings.swatch_shape != 'none'
+          assign picker_type = 'swatch'
+        endif
+      -%}
+      {%- if picker_type == 'swatch' -%}
+        {%- render 'card-product__swatch', product: product, option: option, picker_type: 'swatch' %}
+      {%- endif -%}
+    {%- endfor -%}
+  </ul>
+{%- endunless -%}

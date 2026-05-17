@@ -1,0 +1,12 @@
+<modal-opener class="z-20" id="QuickAdd-{{ product.id }}">
+  <button
+    class="h-7 w-7 cursor-pointer p-1 rounded-xs hover:bg-white duration-100 transition-all"
+    aria-haspopup="dialog"
+    data-product-url="{{ product.url | split: '?' | first }}"
+    aria-label="{{ 'products.product.choose_options' | t }}"
+  >
+    <span class="h-5 w-5 pointer-events-none">
+      {{- 'icon__plus.svg' | inline_asset_content -}}
+    </span>
+  </button>
+</modal-opener>

@@ -1,0 +1,85 @@
+<details
+  data-details-filter
+  id="Details-{{ filter.param_name | escape }}-{{ section.id }}"
+  class="facets__details group transition-all"
+  data-index="{{ forloop.index }}"
+>
+  <summary
+    data-summary-filter
+    class="facets__summary"
+  >
+    <div class="">{{ filter.label | escape }}</div>
+    <span class="size-5 transition-transform group-open:rotate-180">
+      {{- 'icon__chevron-down.svg' | inline_asset_content -}}
+    </span>
+  </summary>
+
+  <div id="Facet-{{ forloop.index }}-{{ section.id }}" class="facets__content flex flex-col gap-5">
+    <div class="flex flex-row justify-between items-center gap-2">
+      {%- assign max_price_amount = filter.range_max | money | strip_html | escape -%}
+      <span class="text-sm">
+        {{- 'products.facets.max_price' | t: price: max_price_amount -}}
+      </span>
+
+      <facet-remove>
+        <a href="{{ filter.url_to_remove }}" class="facets__reset-button">
+          {{ 'products.facets.reset' | t }}
+        </a>
+      </facet-remove>
+    </div>
+
+    <price-range class="flex gap-3">
+      <div class="flex items-center space-x-2">
+        <span class="mr-1">{{ cart.currency.symbol }}</span>
+        <div class="relative w-full">
+          <input
+            class="w-full border border-gray-100 rounded-xs px-2 py-1 focus:ring-1 focus:ring-black focus:outline-none"
+            name="{{ filter.min_value.param_name }}"
+            id="Filter-{{ filter.label | escape }}-GTE"
+            {%- if filter.min_value.value -%}
+              value="{{ filter.min_value.value | money_without_currency }}"
+            {%- endif -%}
+            type="text"
+            inputmode="decimal"
+            placeholder="0"
+            data-pattern="\d| |,|\."
+            data-min="0"
+            data-max="{{ filter.range_max | money_without_currency }}"
+          >
+          <label
+            class="absolute -top-2.5 left-2 bg-white px-1 text-xs"
+            for="Filter-{{ filter.label | escape }}-GTE"
+          >
+            {{- 'products.facets.from' | t -}}
+          </label>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-2">
+        <span class="mr-1">{{ cart.currency.symbol }}</span>
+        <div class="relative w-full">
+          <input
+            class="w-full border border-gray-100 rounded-xs px-2 py-1 focus:ring-1 focus:ring-black focus:outline-none"
+            name="{{ filter.max_value.param_name }}"
+            id="Filter-{{ filter.label | escape }}-LTE"
+            {%- if filter.max_value.value -%}
+              value="{{ filter.max_value.value | money_without_currency }}"
+            {%- endif -%}
+            type="text"
+            inputmode="decimal"
+            placeholder="{{ filter.range_max | money_without_currency }}"
+            data-pattern="\d| |,|\."
+            data-min="0"
+            data-max="{{ filter.range_max | money_without_currency }}"
+          >
+          <label
+            class="absolute -top-2.5 left-2 bg-white px-1 text-xs"
+            for="Filter-{{ filter.label | escape }}-LTE"
+          >
+            {{- 'products.facets.to' | t -}}
+          </label>
+        </div>
+      </div>
+    </price-range>
+  </div>
+</details>

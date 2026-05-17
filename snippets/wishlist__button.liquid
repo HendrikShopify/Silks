@@ -1,0 +1,16 @@
+{%- if product.selected_or_first_available_variant.id != blank -%}
+  <wishlist-button
+    data-product-handle="{{ product.handle }}"
+    data-replace="wishlist-button"
+    data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+  >
+    <button
+      type="button"
+      aria-label="Add to wishlist"
+      class="h-7 w-7 p-1 rounded-xs hover:bg-white duration-100 transition-all cursor-pointer"
+      data-button-wishlist
+    >
+      {%- render 'wishlist__heart' -%}
+    </button>
+  </wishlist-button>
+{%- endif -%}

@@ -1,0 +1,30 @@
+<script src="{{ 'facets.js' | asset_url }}" defer="defer"></script>
+
+{% paginate search.results by 12 %}
+  <div class="container">
+    <h1 class="h2">
+      {%- if search.performed -%}
+        {{- 'templates.search.title' | t -}}
+      {%- else -%}
+        {{- 'general.search.search' | t -}}
+      {%- endif -%}
+    </h1>
+    {% render 'facets', results: search %}
+    <div id="ProductGridContainer" class="container py-20">
+      <ul
+        id="product-grid"
+        data-id="{{ section.id }}"
+        class="product-grid"
+      >
+        {% for result in search.results %}
+          {% if result.object_type == 'product' %}
+            {% render 'card-product', product: result %}
+          {% endif %}
+        {% endfor %}
+        <li></li>
+      </ul>
+
+      {% render 'pagination', paginate: paginate %}
+    </div>
+  </div>
+{% endpaginate %}

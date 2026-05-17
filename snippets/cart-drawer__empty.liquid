@@ -1,0 +1,18 @@
+<div class="h-full flex flex-col py-6 px-8">
+  <div class="flex justify-end">
+    <button
+      class=""
+      type="button"
+      onclick="this.closest('cart-drawer').close()"
+      aria-label="Close"
+    >
+      <span class="h-4 w-4 inline-block pointer-events-none">
+        {{- 'icon__close.svg' | inline_asset_content -}}
+      </span>
+    </button>
+  </div>
+  <div class="h-full flex flex-col justify-center items-center gap-5 ">
+    <h2 class="text-large">Your cart is empty</h2>
+    <a href="{{ routes.all_products_collection_url }}" class="btn">Continue Shopping</a>
+  </div>
+</div>

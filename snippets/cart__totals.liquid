@@ -1,0 +1,31 @@
+<div class="space-y-2" aria-live="polite">
+  <dl class="space-y-1">
+    <!-- Original Price Before Discounts -->
+    <div class="flex justify-between items-center gap-2">
+      <dt class="text-sm">Subtotal</dt>
+      <dd class="text-sm font-semibold">{{ cart.original_total_price | money }}</dd>
+    </div>
+
+    <!-- Total Discounts -->
+    <div class="flex justify-between items-center gap-2">
+      <dt class="text-sm">Total discounts</dt>
+      <dd class="text-sm">{{ cart.total_discount | money }}</dd>
+    </div>
+
+    <!-- Shipping Information -->
+    <div class="flex justify-between items-center gap-2">
+      <dt class="text-sm ">Shipping</dt>
+      <dd class="text-sm">Calculated at checkout</dd>
+    </div>
+
+    <div class="my-3">
+      {% render 'cart-drawer__discounts' %}
+    </div>
+
+    <!-- Estimated Total After Discounts -->
+    <div class="flex justify-between items-center gap-2 mt-">
+      <dt class="">Total</dt>
+      <dd class="">{{ cart.total_price | money }}</dd>
+    </div>
+  </dl>
+</div>

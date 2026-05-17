@@ -1,0 +1,21 @@
+<cart-items
+  {% if cart == empty %}
+    class=" is-empty"
+  {% endif %}
+>
+  <form
+    action="{{ routes.cart_url }}"
+    id="cart-drawer-form"
+    method="post"
+  >
+    <div>
+      {%- if cart != empty -%}
+        <ul class="flex flex-col gap-5">
+          {%- for item in cart.items -%}
+            {% render 'cart-drawer-item', item: item %}
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </form>
+</cart-items>

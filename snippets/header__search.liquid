@@ -1,0 +1,12 @@
+<details-modal>
+  <details class="relative w-full">
+    <summary
+      class="header__icon-button cursor-pointer"
+      aria-haspopup="dialog"
+      aria-label="{{ 'general.search.search' | t }}"
+    >
+      <span>{{ 'icon__search.svg' | inline_asset_content }}</span>
+    </summary>
+    {% render 'search__modal' %}
+  </details>
+</details-modal>

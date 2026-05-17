@@ -1,0 +1,31 @@
+<label
+  for="{{ input_id }}"
+>
+  <input
+    type="radio"
+    id="{{ input_id }}"
+    name="{{ input_name | escape }}"
+    value="{{ value | escape }}"
+    form="{{ product_form_id }}"
+    {% if checked %}
+      checked
+    {% endif %}
+    class="hidden peer"
+    {% if additional_props %}
+      {{ additional_props }}
+    {% endif %}
+  >
+  <span
+    class="
+        variant__pill
+      {% if option_disabled %}
+        variant__radio-disabled
+      {% endif %}
+    "
+  >
+    {{ value -}}
+    {% if option_disabled %}
+      {{ label_unavailable }}
+    {%- endif -%}
+  </span>
+</label>

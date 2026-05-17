@@ -1,0 +1,40 @@
+<script src="{{ 'media-slider.js' | asset_url }}" defer="defer"></script>
+
+<div swiper="media" class="">
+  <div class="swiper aspect-square rounded-xs overflow-hidden">
+    <div class="swiper-wrapper flex h-full w-full">
+      {% for media in product.media %}
+        {% case media.media_type %}
+          {% when 'image' %}
+            <div data-media="{{ media.id }}" class="swiper-slide h-full w-full flex-none">
+              <img
+                class=""
+                srcset="
+                  {%- if media.image.width >= 550 -%}{{ media.image | image_url: width: 550 }} 550w,{%- endif -%}
+                  {%- if media.image.width >= 1100 -%}{{ media.image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                  {%- if media.image.width >= 1445 -%}{{ media.image | image_url: width: 1445 }} 1445w,{%- endif -%}
+                  {%- if media.image.width >= 1680 -%}{{ media.image | image_url: width: 1680 }} 1680w,{%- endif -%}
+                  {%- if media.image.width >= 2048 -%}{{ media.image | image_url: width: 2048 }} 2048w,{%- endif -%}
+                  {%- if media.image.width >= 2200 -%}{{ media.image | image_url: width: 2200 }} 2200w,{%- endif -%}
+                  {%- if media.image.width >= 2890 -%}{{ media.image | image_url: width: 2890 }} 2890w,{%- endif -%}
+                  {%- if media.image.width >= 4096 -%}{{ media.image | image_url: width: 4096 }} 4096w,{%- endif -%}
+                  {{ media.image | image_url }} {{ media.image.width }}w
+                "
+                sizes="(min-width: 750px) calc(100vw - 22rem), 1100px"
+                src="{{ media.image | image_url: width: 1445 }}"
+                alt="{{ media.alt | escape }}"
+                loading="lazy"
+                width="1000"
+                height="{{ 1100 | divided_by: media.image.aspect_ratio | ceil }}"
+                data-media-id="{{ media.id }}"
+              >
+            </div>
+          {% when 'video' %}
+            <div class="swiper-slide flex-none w-full h-full">
+              <div class="h-full w-full flex">{{ media | video_tag: controls: true }}</div>
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</div>

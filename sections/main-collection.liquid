@@ -1,0 +1,50 @@
+{% render 'breadcrumbs' %}
+{% paginate collection.products by 3 %}
+  <div class="container section-padding-md">
+    <div class="default-grid">
+      <h1 class="h1 col-span-6">
+        {{ collection.title }}
+      </h1>
+      <div class="col-span-6">
+        <div class="max-w-xl">
+          {{ collection.description | truncatewords: 50 }}
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-12 py-20 gap-5">
+      <div class="col-span-12 flex justify-between items-center gap-5">
+        <div class="flex gap-5 items-center">
+          {% render 'facets__counts', results: collection %}
+          {% render 'facets__active-filters', results: collection, results_url: collection.url %}
+        </div>
+
+        <facet-filters-form>
+          <form>
+            {% render 'facets__sorting', results: collection %}
+          </form>
+        </facet-filters-form>
+      </div>
+
+      <div class="col-span-3 max-w-sm">
+        {% render 'facets', results: collection %}
+      </div>
+
+      <div class="col-span-9" id="ProductGridContainer">
+        <ul
+          id="product-grid"
+          data-id="{{ section.id }}"
+          class="product-grid"
+        >
+          {% for product in collection.products %}
+            {% render 'card-product', product: product %}
+          {% endfor %}
+          <li></li>
+        </ul>
+        <div class="">
+          {% render 'pagination', paginate: paginate %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endpaginate %}

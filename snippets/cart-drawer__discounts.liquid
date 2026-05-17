@@ -1,0 +1,15 @@
+<div class="flex justify-end">
+  {%- if cart.cart_level_discount_applications.size > 0 -%}
+    <ul aria-label="Discounts">
+      {%- for discount in cart.cart_level_discount_applications -%}
+        <li class="line-item__discount">
+          <span class="h-4 w-4 inline-block">
+            {{- 'icon__discount.svg' | inline_asset_content -}}
+          </span>
+          {{ discount.title | escape }}
+          (-{{ discount.total_allocated_amount | money }})
+        </li>
+      {%- endfor -%}
+    </ul>
+  {%- endif -%}
+</div>

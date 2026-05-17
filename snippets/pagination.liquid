@@ -1,0 +1,59 @@
+{%- if paginate.parts.size > 0 -%}
+  <div class="w-full flex justify-end mt-6">
+    <nav role="navigation" aria-label="{{ 'general.pagination.label' | t }}">
+      <ul class="flex flex-row flex-wrap justify-center gap-2" role="list">
+        {%- if paginate.previous -%}
+          <li class="flex items-center justify-center">
+            <a
+              href="{{ paginate.previous.url }}{{ anchor }}"
+              class="w-8 h-8 flex items-center justify-center rounded-xs"
+              aria-label="{{ 'general.pagination.previous' | t }}"
+            >
+              &larr;
+            </a>
+          </li>
+        {%- endif -%}
+
+        {%- for part in paginate.parts -%}
+          <li class="flex items-center justify-center">
+            {%- if part.is_link -%}
+              <a
+                href="{{ part.url }}{{ anchor }}"
+                class="w-8 h-8 flex items-center justify-center rounded-xs"
+                aria-label="{{ 'general.pagination.page' | t: number: part.title }}"
+              >
+                {{- part.title -}}
+              </a>
+            {%- else -%}
+              {%- if part.title == paginate.current_page -%}
+                <a
+                  role="link"
+                  aria-disabled="true"
+                  class="w-8 h-8 flex items-center justify-center rounded-xs underline"
+                  aria-current="page"
+                  aria-label="{{ 'general.pagination.page' | t: number: part.title }}"
+                >
+                  {{- part.title -}}
+                </a>
+              {%- else -%}
+                <span class="w-8 h-8 flex items-center justify-center rounded-xs">{{ part.title }}</span>
+              {%- endif -%}
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+
+        {%- if paginate.next -%}
+          <li class="flex items-center justify-center">
+            <a
+              href="{{ paginate.next.url }}{{ anchor }}"
+              class="w-8 h-8 flex items-center justify-center rounded-xs"
+              aria-label="{{ 'general.pagination.next' | t }}"
+            >
+              &rarr;
+            </a>
+          </li>
+        {%- endif -%}
+      </ul>
+    </nav>
+  </div>
+{%- endif -%}

@@ -1,0 +1,17 @@
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+  assign price = variant.price | money
+  assign compare_at_price = variant.compare_at_price | money
+  if variant.compare_at_price > variant.price
+    assign on_sale = true
+  endif
+-%}
+
+<div data-replace="price" class="flex flex-row gap-2">
+  {%- if on_sale -%}
+    <span class="sr-only">regular price</span>
+    <s class="text-small">{{ compare_at_price }}</s>
+    <span class="sr-only">sale price</span>
+  {%- endif -%}
+  <span class="text-small">{{ price }}</span>
+</div>

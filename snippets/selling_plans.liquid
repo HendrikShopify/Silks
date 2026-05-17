@@ -1,0 +1,33 @@
+{% if product.selling_plan_groups.size > 0 %}
+  <fieldset>
+    <legend>Purchase Options:</legend>
+
+    <div>
+      <input
+        type="radio"
+        id="one-time"
+        name="selling_plan"
+        value=""
+        form="{{ product_form_id }}"
+        checked
+      >
+      <label for="one-time">One-time purchase</label>
+    </div>
+
+    {% for selling_plan_group in product.selling_plan_groups %}
+      {% for selling_plan in selling_plan_group.selling_plans %}
+        {% assign input_id = 'selling-plan-' | append: selling_plan.id %}
+        <div>
+          <input
+            type="radio"
+            id="{{ input_id }}"
+            name="selling_plan"
+            value="{{ selling_plan.id }}"
+            form="{{ product_form_id }}"
+          >
+          <label for="{{ input_id }}">{{ selling_plan_group.name }} - {{ selling_plan.name }}</label>
+        </div>
+      {% endfor %}
+    {% endfor %}
+  </fieldset>
+{% endif %}

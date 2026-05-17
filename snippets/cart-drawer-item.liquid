@@ -1,0 +1,25 @@
+<li data-cart-drawer-item id="CartDrawer-Item-{{ item.index | plus: 1 }}" class="flex flex-row gap-5">
+  {% render 'drawer-line-item__image', item: item %}
+
+  <div class="flex justify-between flex-grow">
+    <div class="flex flex-col gap-2">
+      <a data-cart-drawer-item-name href="{{ item.url }}" class="text-sm max-w-[150px] break-words">
+        {{- item.product.title | escape -}}
+      </a>
+
+      {% render 'drawer-line-item__option-values', item: item %}
+    </div>
+
+    <div class="flex flex-col items-end justify-between flex-grow">
+      <div class="text-sm flex flex-col gap-2 items-end">
+        {% render 'drawer-line-item__price', item: item %}
+        {% render 'drawer-line-item__discounts', item: item %}
+      </div>
+
+      {% comment %} {% render 'drawer-line-item__total-price', item: item %} {% endcomment %}
+
+      {% render 'drawer-line-item__quantity-input', item: item %}
+    </div>
+  </div>
+</li>
+{% render 'drawer-line-item__error' %}

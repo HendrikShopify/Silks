@@ -1,0 +1,20 @@
+{%- if item.original_price != item.final_price -%}
+  <div class="">
+    <span class="sr-only">
+      {{ 'products.product.price.regular_price' | t }}
+    </span>
+    <s class="">
+      {{- item.original_price | money -}}
+    </s>
+    <span class="sr-only">
+      {{ 'products.product.price.sale_price' | t }}
+    </span>
+    <strong class="">
+      {{ item.final_price | money }}
+    </strong>
+  </div>
+{%- else -%}
+  <div class="">
+    {{ item.original_price | money }}
+  </div>
+{%- endif -%}

@@ -1,0 +1,18 @@
+{% render 'breadcrumbs' %}
+{%- paginate blog.articles by 1 -%}
+  <div class="container section-padding-sm">
+    <h1 class="h1 mb-8">
+      {{ blog.title | escape }}
+    </h1>
+
+    <div class="article-grid">
+      {%- for article in blog.articles -%}
+        {%- render 'card-article', article: article -%}
+      {%- endfor -%}
+    </div>
+
+    {%- if paginate.pages > 1 -%}
+      {%- render 'pagination', paginate: paginate -%}
+    {%- endif -%}
+  </div>
+{%- endpaginate -%}

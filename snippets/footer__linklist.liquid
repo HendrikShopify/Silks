@@ -1,0 +1,17 @@
+{%- assign menu = block.settings.menu -%}
+
+{%- unless menu -%}
+  {%- assign menu = linklists['main-menu'] -%}
+{%- endunless -%}
+<nav>
+  <h3 class="text-sm mb-5">Help</h3>
+  <ul class="">
+    {%- for link in menu.links -%}
+      <li>
+        <a href="{{ link.url }}" class="">
+          {{ link.title | escape }}
+        </a>
+      </li>
+    {%- endfor -%}
+  </ul>
+</nav>

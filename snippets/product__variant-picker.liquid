@@ -1,0 +1,48 @@
+{%- unless product.has_only_default_variant -%}
+  <variant-selects
+    id="variant-selects-{{ section.id }}"
+    data-section="{{ section.id }}"
+    {{ block.shopify_attributes }}
+    class="flex flex-col gap-4"
+  >
+    {%- for option in product.options_with_values -%}
+      {%- liquid
+        assign swatch_count = option.values | map: 'swatch' | compact | size
+        assign picker_type = block.settings.picker_type
+        if swatch_count > 0 and block.settings.swatch_shape != 'none'
+          assign picker_type = 'swatch'
+        endif
+      -%}
+      {%- if picker_type == 'swatch' -%}
+        <fieldset class="flex flex-row gap-1 flex-wrap">
+          <legend class="variant__legend">
+            {{ option.name }}:
+            <span data-selected-value class="font-normal text-gray-600">
+              {{- option.selected_value -}}
+            </span>
+          </legend>
+          {% render 'product__variant-options',
+            product: product,
+            option: option,
+            product_form_id: product_form_id,
+            picker_type: picker_type
+          %}
+        </fieldset>
+      {%- else -%}
+        <fieldset class="flex flex-row gap-1 flex-wrap">
+          <legend class="variant__legend">{{ option.name }}</legend>
+          {% render 'product__variant-options',
+            product: product,
+            option: option,
+            product_form_id: product_form_id,
+            picker_type: picker_type
+          %}
+        </fieldset>
+      {%- endif -%}
+    {%- endfor -%}
+
+    <script type="application/json" data-selected-variant>
+      {{ product.selected_or_first_available_variant | json }}
+    </script>
+  </variant-selects>
+{%- endunless -%}

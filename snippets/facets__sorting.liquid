@@ -1,0 +1,36 @@
+<div class="">
+  <div class="flex items-center gap-2">
+    <h2 class="text-sm flex-none">
+      <label for="SortBy">{{ 'products.facets.sort_by_label' | t }}</label>
+    </h2>
+    <div class="relative w-full max-w-md">
+      {%- assign sort_by = results.sort_by | default: results.default_sort_by -%}
+      <select
+        name="sort_by"
+        id="SortBy"
+        class="w-full px-3 pl-2 pr-10 appearance-none rounded-xs bg-grey-100 text-sm"
+        aria-describedby="a11y-refresh-page-message"
+      >
+        {%- for option in results.sort_options -%}
+          <option
+            value="{{ option.value | escape }}"
+            {% if option.value == sort_by %}
+              selected="selected"
+            {% endif %}
+          >
+            {{ option.name | escape }}
+          </option>
+        {%- endfor -%}
+      </select>
+      <svg
+        class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+      </svg>
+    </div>
+  </div>
+</div>

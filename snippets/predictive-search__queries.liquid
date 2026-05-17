@@ -1,0 +1,51 @@
+{%- if predictive_search.resources.queries.size > 0 or predictive_search.resources.collections.size > 0 -%}
+  <div class="">
+    <h2 id="predictive-search-queries" class="text-sm mb-5">
+      {{- 'templates.search.suggestions' | t -}}
+    </h2>
+    <ul
+      id="predictive-search-results-queries-list"
+      class=""
+      role="group"
+      aria-labelledby="predictive-search-queries"
+    >
+      {%- for query in predictive_search.resources.queries -%}
+        <li
+          id="predictive-search-option-query-{{ forloop.index }}"
+          class=""
+          role="option"
+          aria-selected="false"
+        >
+          <a
+            href="{{ query.url }}"
+            class="flex items-center gap-5 p-3 text-gray-900 hover:text-gray-900 focus:outline-none focus:bg-gray-50 group-aria-selected:bg-gray-50 hover:bg-gray-50"
+            tabindex="-1"
+          >
+            <p class="text-sm " aria-label="{{ query.text }}">
+              {{ query.styled_text }}
+            </p>
+          </a>
+        </li>
+      {%- endfor -%}
+
+      {%- for collection in predictive_search.resources.collections -%}
+        <li
+          id="predictive-search-option-collection-{{ forloop.index }}"
+          class=""
+          role="option"
+          aria-selected="false"
+        >
+          <a
+            href="{{ collection.url }}"
+            class="flex items-center gap-5 p-3 text-gray-900 hover:text-gray-900 focus:outline-none focus:bg-gray-50 group-aria-selected:bg-gray-50 hover:bg-gray-50"
+            tabindex="-1"
+          >
+            <p class="text-sm font-medium">
+              {{ collection.title | escape }}
+            </p>
+          </a>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+{%- endif -%}

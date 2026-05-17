@@ -1,0 +1,20 @@
+{%- if predictive_search.resources.products.size > 0 -%}
+  <div>
+    <h2
+      id="predictive-search-products"
+      class="text-sm mb-3"
+    >
+      {{- 'templates.search.products' | t -}}
+    </h2>
+    <ul
+      id="predictive-search-results-products-list"
+      class=""
+      role="group"
+      aria-labelledby="predictive-search-products"
+    >
+      {%- for product in predictive_search.resources.products -%}
+        {% render 'predictive-search__product', product: product %}
+      {%- endfor -%}
+    </ul>
+  </div>
+{%- endif -%}

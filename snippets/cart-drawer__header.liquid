@@ -1,0 +1,15 @@
+<div class="px-8 py-6 bg-gray-50">
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-large">Your cart</h2>
+    <button
+      type="button"
+      onclick="this.closest('cart-drawer').close()"
+      aria-label="Close"
+    >
+      <span class="h-4 w-4 inline-block pointer-events-none">
+        {{- 'icon__close.svg' | inline_asset_content -}}
+      </span>
+    </button>
+  </div>
+  {% render 'free-shipping-bar' %}
+</div>

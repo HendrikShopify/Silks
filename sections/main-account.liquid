@@ -1,0 +1,19 @@
+<div class="container section-padding-sm">
+  <div class="mb-8">
+    {% render 'account__navigation' %}
+  </div>
+  <div class="default-grid">
+    <div class="col-span-6">
+      {% render 'account__order-history' %}
+    </div>
+
+    <div class="col-span-4 col-start-8">
+      <div class="">
+        <h2 class="h2 mb-8">{{ 'customer.account.details' | t }}</h2>
+        <div class="p-6 bg-gray-50 border border-gray-200 rounded-xs text-sm max-w-sm">
+          {{ customer.default_address | format_address }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

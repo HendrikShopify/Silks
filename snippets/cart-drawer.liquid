@@ -1,0 +1,31 @@
+<script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
+
+<cart-drawer style="display:none;" class="hidden fixed inset-0 z-500 {% if cart == empty %}is-empty{% endif %}">
+  <div class="w-full flex justify-end">
+    <div id="cart-drawer-overlay" class="absolute inset-0 bg-black"></div>
+    <div
+      id="cart-drawer-inner"
+      class="bg-white h-full w-full max-w-[32.5rem] flex flex-col"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Cart Drawer"
+      tabindex="-1"
+    >
+      {%- if cart == empty -%}
+        {% render 'cart-drawer__empty' %}
+      {%- else -%}
+        {% render 'cart-drawer__header' %}
+      {%- endif -%}
+
+      <div class="px-8 py-5 flex-1 overflow-y-auto min-h-0">
+        {% render 'cart-drawer__line-items' %}
+      </div>
+
+      <div id="cart-drawer-error"></div>
+
+      {%- unless cart == empty -%}
+        {% render 'cart-drawer__footer' %}
+      {%- endunless -%}
+    </div>
+  </div>
+</cart-drawer>

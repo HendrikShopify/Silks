@@ -1,0 +1,24 @@
+<div class="">
+  {%- if item.original_line_price != item.final_line_price -%}
+    <dl class="">
+      <dt class="sr-only">
+        {{ 'products.product.price.regular_price' | t }}
+      </dt>
+      <dd>
+        <s class="">
+          {{ item.original_line_price | money }}
+        </s>
+      </dd>
+      <dt class="sr-only">
+        {{ 'products.product.price.sale_price' | t }}
+      </dt>
+      <dd class="">
+        {{ item.final_line_price | money }}
+      </dd>
+    </dl>
+  {%- else -%}
+    <span class="">
+      {{ item.original_line_price | money }}
+    </span>
+  {%- endif -%}
+</div>

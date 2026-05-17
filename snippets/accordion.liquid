@@ -1,0 +1,9 @@
+<details class="group border-b border-gray-200 mb-4">
+  <summary class="flex justify-between items-center cursor-pointer text-lg font-medium text-gray-700 pb-4">
+    {{ title }}!
+    {{- 'icon__chevron-down.svg' | inline_asset_content -}}
+  </summary>
+  <div class="h-0 group-open:h-auto overflow-hidden transition-all duration-600 pb-4">
+    {{ content }}
+  </div>
+</details>

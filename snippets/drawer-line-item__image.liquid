@@ -1,0 +1,13 @@
+{% if item.image %}
+  {% comment %} Leave empty space due to a:empty CSS display: none rule {% endcomment %}
+  <a href="{{ item.url }}" class="sr-only" tabindex="-1" aria-hidden="true"> </a>
+  <div class="h-25 w-25 flex-none overflow-hidden rounded-xs">
+    <img
+      src="{{ item.image | image_url: width: 300 }}"
+      alt="{{ item.image.alt | escape }}"
+      loading="lazy"
+      width="150"
+      height="{{ 150 | divided_by: item.image.aspect_ratio | ceil }}"
+    >
+  </div>
+{% endif %}
