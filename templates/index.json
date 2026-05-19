@@ -1,13 +1,42 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "main-index",
+      "settings": {
+        "title": "Created for the modern woman who moves through life.",
+        "cta": "Discover the collection",
+        "link": "",
+        "description": "Movement is freedom, and style should follow. SILKS combines refined design with effortless comfort, creating pieces that let you move, pause, and breathe in confidence.",
+        "image": "shopify://shop_images/ProductItem-1.jpg"
+      }
     },
     "product-grid": {
       "type": "product-grid",
+      "settings": {
+        "title": "Crafted Collections Built to Perform.",
+        "description": "Every collection tells a story of precision, durability, and design. From industrial-inspired finishes to refined, functional details, each piece is made to elevate performance without losing character. Explore our full range and find the collection that fits your way of working.",
+        "collection": ""
+      }
     },
     "about": {
       "type": "about",
+      "settings": {
+        "intro": "SILKS was born from the belief that movement and elegance can coexist. In a world that often celebrates speed, SILKS invites you to slow down, to move with purpose, to feel present in your own rhythm.",
+        "eyebrow": "About us",
+        "title": "SILKS was born from the belief that movement and elegance can coexist.",
+        "cta": "Our collection",
+        "link": "",
+        "description": "A refined collection created to elevate the everyday. Each design blends performance and poise, crafted from soft, breathable materials that follow your every move. From morning routines to evening reflections, SILKS moves with you, effortlessly, gracefully, and with timeless intention. A refined collection designed to elevate the everyday. Each piece blends performance and elegance, made to move effortlessly with you, wherever the day takes you. A refined collection designed to elevate the everyday. Each piece blends performance and elegance, made to move effortlessly with you, wherever the day takes you."
+      }
     }
   },
   "order": [

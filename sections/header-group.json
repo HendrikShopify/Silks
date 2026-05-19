@@ -8,14 +8,23 @@
  * ------------------------------------------------------------
  */
 {
-    "name": "Header group",
-    "type": "header",
-    "sections": {
-        "header": {
-            "type": "header"
-        }
-    },
-    "order": [
-        "header"
-    ]
+  "name": "Header group",
+  "type": "header",
+  "sections": {
+    "header": {
+      "type": "header",
+      "settings": {
+        "title": "A New Season, A Softer Rhythm.",
+        "cta": "Shop the Edit",
+        "link": "shopify://collections/all",
+        "description": "Each drop is shaped by timeless silhouettes, elevated materials, and a touch of understated luxury, made to accompany you through every chapter of your day.",
+        "image": "shopify://shop_images/ProductItem-1_b1e07f85-e260-4a35-94f6-1619909581ce.jpg",
+        "menu": "mega-menu-menu",
+        "legal_menu": "footer"
+      }
+    }
+  },
+  "order": [
+    "header"
+  ]
 }
