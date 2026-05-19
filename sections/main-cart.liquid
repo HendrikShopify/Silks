@@ -1,35 +1,36 @@
-<div id="main-cart" class="group {% if cart == empty %}is-empty{% endif %}">
-  <div class="container section-padding-sm">
-    <div class="default-grid">
-      <div class="col-start-2 col-span-4">
-        <div>
-          <h1 class="text-xl mb-8">Your cart</h1>
-        </div>
-
+<div
+  id="main-cart"
+  class="group {% if cart == empty %}is-empty{% endif %} [background-image:linear-gradient(180deg,_#f4f2ef,_#d7d0c8)]"
+>
+  <div class="container">
+    <div class="flex lg:flex flex-col lg:flex-row flex-nowrap grid-cols-2 grid-rows-[auto] auto-cols-[1fr] gap-10 justify-between pb-15 sm:pb-25">
+      <div class="flex flex-col basis-[0%] grow shrink gap-x-10 sm:gap-x-4 gap-y-10 sm:gap-y-4 pt-[0vw] lg:pt-60 pr-0 sm:pr-5 md:pr-[0vw] lg:pr-0 pb-[0vw] lg:pb-0 pl-0 sm:pl-5 md:pl-[0vw] lg:pl-[5vw]">
         {% if cart == empty %}
-          <div>
-            <h1 class="text-xl mb-3">Your cart is empty</h1>
-            <a href="{{ routes.all_products_collection_url }}" class="btn"> Continue Shopping </a>
+          <div class="py-10 lg:py-20">
+            <h1 class="text-2xl mb-4">{{ 'cart.empty_state_heading' | t }}</h1>
+            <a href="{{ routes.all_products_collection_url }}" class="btn">{{ 'cart.continue_shopping_button' | t }}</a>
           </div>
         {% endif %}
 
-        <form action="{{ routes.cart_url }}" class="block group-[.is-empty]:hidden" method="post" id="cart">
-          <div>
-            <cart-items>
-              {%- if cart != empty -%}
-                <ul class="space-y-5">
-                  {%- for item in cart.items -%}
-                    {% render 'cart-line-item', item: item %}
-                  {%- endfor -%}
-                </ul>
-              {%- endif -%}
-            </cart-items>
+        <form
+          action="{{ routes.cart_url }}"
+          class="block group-[.is-empty]:hidden"
+          method="post"
+          id="cart"
+        >
+          <cart-items>
+            {%- if cart != empty -%}
+              <ul class="flex flex-col gap-y-10 sm:gap-y-4">
+                {%- for item in cart.items -%}
+                  {% render 'cart-page-line-item', item: item %}
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+          </cart-items>
 
-            <div id="cart-page-error"></div>
-          </div>
+          <div id="cart-page-error" class="mt-4 text-red-400 text-sm"></div>
 
           <p class="sr-only" id="cart-live-region-text" aria-live="polite" role="status"></p>
-
           <p
             class="sr-only"
             id="shopping-cart-line-item-status"
@@ -37,44 +38,55 @@
             aria-hidden="true"
             role="status"
           >
-            Loading...
+            {{ 'cart.loading_status' | t }}
           </p>
         </form>
       </div>
 
-      <div
-        class="group {% if cart == empty %}is-empty{% endif %} col-start-8 col-span-4"
-        id="main-cart-footer"
-      >
-        <div class="block group-[.is-empty]:hidden">
-          {% comment %} {% render 'cart__note' %} {% endcomment %}
+      {%- unless cart == empty -%}
+        <div
+          class="basis-[0%] grow shrink order-[-9999] lg:order-none mx-auto lg:mx-0 max-w-180 h-full"
+          id="main-cart-footer"
+        >
+          <div class="flex sticky top-0 flex-col pt-[170px] sm:pt-50 pr-5 md:pr-[5vw] pb-10 md:pb-8 lg:pb-20 pl-5 md:pl-[5vw] rounded-br-4xl rounded-bl-4xl min-h-auto lg:min-h-[90vh] bg-[#f7f4f1]">
+            <h2 class="mb-10 md:mb-[66px] text-2xl font-playfair">{{ 'cart.summary_heading' | t }}</h2>
 
-          <h2 class="text-xl mb-8">Summary</h2>
-
-          <div class="flex flex-col gap-5">
-            {% render 'free-shipping-bar' %}
-
-            <div>
-              {% render 'cart__totals' %}
+            <div class="flex justify-between items-center pb-[15px] border-b border-b-[#d4cdc4] border-b-solid">
+              <p>{{ 'cart.subtotal_label' | t }}</p>
+              <p>{{ cart.items_subtotal_price | money }}</p>
             </div>
 
-            <div>
-              <button
-                type="submit"
-                id="checkout"
-                class="btn w-full"
-                name="checkout"
-                {% if cart == empty %}
-                  disabled
-                {% endif %}
-                form="cart"
-              >
-                Checkout
-              </button>
+            <div class="flex justify-between items-center pt-5 pb-[15px] border-b border-b-[#d4cdc4] border-b-solid">
+              <p>{{ 'cart.shipping_label' | t }}</p>
+              <p class="text-neutral-200">{{ 'cart.shipping_calculated_notice' | t }}</p>
+            </div>
+
+            <button
+              type="submit"
+              id="checkout"
+              class="btn w-full mt-8"
+              name="checkout"
+              {% if cart == empty %}
+                disabled
+              {% endif %}
+              form="cart"
+            >
+              {{ 'cart.checkout_button' | t }}
+            </button>
+
+            <div class="flex flex-col gap-x-1 lg:gap-x-4 gap-y-1 lg:gap-y-4 mt-4 lg:mt-auto">
+              <div class="flex flex-col gap-2">
+                <span class="text-[18px] leading-[28px] text-[#544f49]">{{ 'cart.free_shipping_label' | t }}</span>
+              </div>
+              <div class="max-w-105" aria-labelledby="shipping-toggle">
+                <p class="text-neutral-200">
+                  {{ 'cart.shipping_delivery_notice' | t }}
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      {%- endunless -%}
     </div>
   </div>
 </div>

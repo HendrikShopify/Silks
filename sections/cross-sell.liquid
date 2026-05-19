@@ -1,0 +1,41 @@
+{% if product.metafields.custom.shop_the_style.value %}
+  <div class="container">
+    <div class="flex flex-row flex-wrap lg:flex-nowrap gap-x-[30px] md:gap-x-15 lg:gap-x-[6rem] gap-y-[30px] md:gap-y-15 lg:gap-y-[6rem] justify-between items-end mx-auto pt-[50px] max-w-360">
+      <div class="basis-auto grow shrink">
+        <h2 class="text-6xl sm:text-6xl lg:text-8xl font-normal tracking-[-0.06rem] leading-[1.02] font-playfair">
+          {{ section.settings.title }}
+        </h2>
+      </div>
+      <div class="max-w-[490px]">
+        <p>{{ section.settings.description }}</p>
+      </div>
+    </div>
+    <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 grid-rows-[auto] auto-cols-[1fr] gap-4 pt-5 lg:pt-20 pb-25 lg:pb-50">
+      {% for product in product.metafields.custom.shop_the_style.value %}
+        <li>
+          {% render 'card-product', product: product %}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
+{% schema %}
+{
+  "name": "cross-sell",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Shop the Style."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Every collection tells a story of precision, durability, and design. From industrial-inspired finishes to refined, functional details, each piece is made to elevate performance without losing character. Explore our full range and find the collection that fits your way of working."
+    }
+  ]
+}
+{% endschema %}

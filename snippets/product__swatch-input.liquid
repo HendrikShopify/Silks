@@ -1,7 +1,7 @@
 <label
   for="{{ id }}"
   title="{{ value }}"
-  class="cursor-pointer"
+  class="cursor-pointer flex items-center justify-center"
 >
   <input
     type="{{ type | default: 'radio' }}"
@@ -39,7 +39,7 @@
 
   <span
     class="
-      variant__swatch
+      variant__swatch flex
        {% if option_disabled %}
         variant__swatch-disabled
       {% endif %}

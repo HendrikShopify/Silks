@@ -1,0 +1,40 @@
+<section class="pb-15 sm:pb-28 bg-neutral-400" -image="big-image">
+  <div class="container">
+    <div class="aspect-[16/5] rounded-4xl w-full overflow-hidden">
+      <img
+        class="size-full object-cover"
+        src="{{ section.settings.image | image_url: width: 1800 }}"
+        srcset="
+          {{ section.settings.image | image_url: width: 450 }} 450w,
+          {{ section.settings.image | image_url: width: 900 }} 900w,
+          {{ section.settings.image | image_url: width: 1206 }} 1206w,
+          {{ section.settings.image | image_url: width: 1800 }} 1800w
+        "
+        sizes="(max-width: 900px) 450px, (max-width: 1206px) 900px, (max-width: 1800px) 1206px, 1800px"
+        width="1800"
+        height="1800"
+      >
+    </div>
+  </div>
+</section>
+
+<!-- Section Settings -->
+{% schema %}
+{
+  "name": "big",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "image"
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "big"
+    }
+  ]
+}
+{% endschema %}

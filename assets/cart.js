@@ -1,8 +1,12 @@
 class CartIcon extends HTMLElement {
   connectedCallback() {
-    this.querySelector('a').addEventListener('click', (evt) => {
+    const link = this.querySelector('a');
+    const drawer = document.querySelector('cart-drawer');
+    if (!link || !drawer) return;
+
+    link.addEventListener('click', (evt) => {
       evt.preventDefault();
-      document.querySelector('cart-drawer').open(this.querySelector('a'));
+      drawer.open(link);
     });
   }
 }
@@ -22,7 +26,18 @@ class CartItems extends HTMLElement {
     });
   }
 
+  static getSectionsToRequest() {
+    const sections = [];
+    if (document.getElementById('cart-icon-bubble')) sections.push('cart-icon-bubble');
+    if (document.getElementById('cart-drawer-inner')) sections.push('cart-drawer');
+    if (document.getElementById('main-cart')) sections.push('main-cart');
+    return sections;
+  }
+
   updateQuantity(line, quantity) {
+    const sections = CartItems.getSectionsToRequest();
+    if (!sections.length) return;
+
     this.setAttribute('loading', '');
     document.dispatchEvent(new Event('loading:start'));
     this.clearError();
@@ -32,7 +47,7 @@ class CartItems extends HTMLElement {
       body: JSON.stringify({
         line: parseInt(line),
         quantity: parseInt(quantity),
-        sections: ['cart-drawer', 'cart-icon-bubble', 'main-cart'],
+        sections,
         sections_url: window.location.pathname
       })
     })
@@ -67,25 +82,38 @@ class CartItems extends HTMLElement {
   }
 
   static renderSections(sections) {
-    document.getElementById('cart-icon-bubble').innerHTML =
-      CartItems.getSectionHTML(sections['cart-icon-bubble'], 'cart-icon-bubble');
+    if (!sections) return;
 
-    document.getElementById('cart-drawer-inner').innerHTML =
-      CartItems.getSectionHTML(sections['cart-drawer'], 'cart-drawer-inner');
+    const cartIconBubble = document.getElementById('cart-icon-bubble');
+    if (cartIconBubble && sections['cart-icon-bubble']) {
+      cartIconBubble.innerHTML = CartItems.getSectionHTML(
+        sections['cart-icon-bubble'],
+        'cart-icon-bubble'
+      );
+    }
+
+    const cartDrawerInner = document.getElementById('cart-drawer-inner');
+    if (cartDrawerInner && sections['cart-drawer']) {
+      cartDrawerInner.innerHTML = CartItems.getSectionHTML(
+        sections['cart-drawer'],
+        'cart-drawer-inner'
+      );
+    }
 
     const cartPage = document.getElementById('main-cart');
-    if (cartPage) {
+    if (cartPage && sections['main-cart']) {
       cartPage.innerHTML = CartItems.getSectionHTML(sections['main-cart'], 'main-cart');
     }
 
     const cartDrawer = document.querySelector('cart-drawer');
-    if (cartDrawer) cartDrawer.createTimeline();
+    if (cartDrawer?.createTimeline) cartDrawer.createTimeline();
   }
 
   static getSectionHTML(html, sectionId) {
-    return new DOMParser()
-      .parseFromString(html, 'text/html')
-      .getElementById(sectionId).innerHTML;
+    if (!html) return '';
+
+    const sectionRoot = new DOMParser().parseFromString(html, 'text/html').getElementById(sectionId);
+    return sectionRoot ? sectionRoot.innerHTML : '';
   }
 }
 
@@ -100,16 +128,18 @@ class CartDrawer extends HTMLElement {
     this.createTimeline();
 
     this.addEventListener('keyup', (evt) => evt.code === 'Escape' && this.close());
-    document.getElementById('cart-drawer-overlay').addEventListener('click', () => this.close());
+
+    const overlay = document.getElementById('cart-drawer-overlay');
+    if (overlay) overlay.addEventListener('click', () => this.close());
   }
 
   createTimeline() {
     const inner = document.getElementById('cart-drawer-inner');
     const overlay = document.getElementById('cart-drawer-overlay');
+    if (!inner || !overlay) return;
 
     if (this.cartTimeline) this.cartTimeline.kill();
 
-    // Clear any transforms GSAP left on the element
     gsap.set(inner, { clearProps: 'all' });
 
     this.cartTimeline = gsap.timeline({
@@ -136,13 +166,15 @@ class CartDrawer extends HTMLElement {
   }
 
   open(triggerElement) {
+    if (!this.cartTimeline) return;
+
     this.triggerElement = triggerElement || document.querySelector('cart-icon a');
     this.cartTimeline.play();
     document.body.style.overflow = 'hidden';
   }
 
   close() {
-    if (!this.isOpen) return;
+    if (!this.isOpen || !this.cartTimeline) return;
     this.isOpen = false;
     this.cartTimeline.reverse();
     document.body.style.overflow = '';
@@ -157,11 +189,9 @@ class CartRemoveButton extends HTMLElement {
   constructor() {
     super();
     this.addEventListener('click', () => {
-      this.closest('cart-items').updateQuantity(this.dataset.index, 0);
+      this.closest('cart-items')?.updateQuantity(this.dataset.index, 0);
     });
   }
 }
 
 customElements.define('cart-remove-button', CartRemoveButton);
-
-

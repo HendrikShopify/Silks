@@ -1,8 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-    --font-primary: Inter-Regular, sans-serif;   
-    --font-secondary: Inter-Regular, sans-serif;   
+    --font-primary: Inter, sans-serif;   
+    --font-secondary: Inter, sans-serif;   
+    --font-playfair: PlayfairDisplay, sans-serif;
 
     --color-red-100: #FFEBEE;
     --color-red-200: #FFCDD2;
@@ -17,25 +18,46 @@
     --color-gray-400: #BDBDBD;
     --color-gray-500: #9E9E9E;
 
+    --color-neutral-100: #f4f2ef;
+    --color-neutral-200: #968e7f;
+    --color-neutral-300: #b48c7a;
+    --color-neutral-400: #d7d0c8;
+    --color-neutral-800: #3b322b;
+    --color-neutral-900: #2e2a28;
+
     --text-xs: 0.75rem;
     --text-sm: 0.875rem;
     --text-base: 1rem;
-    --text-lg: 1.125rem;
-    --text-xl: 1.25rem;
+    --text-lg: 1.25rem;
+    --text-xl: 1.5625rem;
     --text-2xl: 1.5rem;
     --text-3xl: 1.875rem;
     --text-4xl: 2.25rem;
-    --text-5xl: 3rem;
-    --text-6xl: 4rem;
+    --text-5xl: 2.5rem;
+    --text-6xl: 3.75rem;
+    --text-7xl: 4.375rem;
+    --text-8xl: 5.625rem;
+    --text-9xl: 8rem;
 }
 
-@font-face {
-    font-family: 'Inter-Regular';
-    src: url('./Inter-Regular') format('opentype');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-  }
+    @font-face {
+        font-family: 'Inter';
+        src: url('https://cdn.shopify.com/s/files/1/0983/4338/7416/files/Inter.woff2?v=1779009799') format('woff2');
+        font-weight: 100 900;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'PlayfairDisplay';
+        src: url('https://cdn.shopify.com/s/files/1/0983/4338/7416/files/69f176635f97d23152680d90_PlayfairDisplay-VariableFont_wght.woff2?v=1779007709') format('woff2');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+    }
+
+
+
 
 
   cart-items[loading] {
@@ -47,27 +69,58 @@
 /* Layout */
 
 .container {
-    @apply mx-auto w-full max-w-400 px-4
+    @apply mx-auto w-full max-w-425 px-4
 }
 
 .default-grid {
     @apply flex flex-col gap-5 lg:grid lg:grid-cols-12
 }
 
-/* Buttons */
 
+.rich-text h1 {
+    @apply text-7xl leading-[1.2em!important] font-playfair mb-6;
+}
+
+.rich-text h2 {
+    @apply text-2xl leading-[1.2em!important] font-playfair mb-6;
+}
+
+.rich-text h3 {
+    @apply text-2xl leading-[1.2em!important] font-playfair mb-6;
+}
+
+.rich-text h4 {
+    @apply text-2xl leading-[1.2em!important] font-playfair mb-6;
+}
+
+.rich-text h5 {
+    @apply text-2xl leading-[1.2em!important] font-playfair mb-6;
+}
+
+.rich-text h6 {
+    @apply text-2xl leading-[1.2em!important] font-playfair mb-6;
+}
+
+.rich-text p {
+    @apply text-base leading-[1.7] mb-10;
+}
+
+/* Buttons */
 .btn {
-    @apply bg-black text-white rounded-xs px-4 py-2 cursor-pointer h-10 inline-flex justify-center gap-2 items-center text-sm min-h-10 border border-black
+    @apply inline-flex gap-5 justify-center items-center pt-5 pr-[30px] pb-5 pl-[30px] rounded-xl w-full text-center text-neutral-100 whitespace-nowrap bg-neutral-900 cursor-pointer;
 }
 
 .btn[disabled] {
-    @apply opacity-30 cursor-not-allowed
+    @apply bg-neutral-200 cursor-not-allowed
 }
 
 .btn__icon {
     @apply size-4
 }
 
+.btn-secondary {
+    @apply inline-flex gap-5 justify-start items-center pt-[10px] pr-[10px] pb-[10px] pl-[30px] rounded-4xl text-center text-neutral-900 whitespace-nowrap bg-neutral-100;
+}
 
 /* Forms */
 
@@ -235,28 +288,29 @@ select {
     @apply text-sm mb-1
 }
 
-.variant__pill {
+/* .variant__pill {
     @apply border peer-checked:border-black peer-checked:bg-black peer-checked:text-white px-3 py-2
     w-full h-full flex items-center justify-center text-sm rounded-xs leading-none
     transition-all duration-200 relative overflow-hidden cursor-pointer
+} */
+
+.variant__pill {
+    @apply peer-checked:font-bold block min-w-6 text-left p-0 border-[0] leading-none bg-transparent cursor-pointer;
 }
 
 .variant__swatch {
-    @apply h-8 w-8 border-1 border-transparent peer-checked:!border-black transition-all overflow-hidden inline-flex items-center rounded-xs
+    @apply inline-block p-0  rounded-[50%] size-[1.45rem] cursor-pointer border-transparent border-1 peer-checked:border-neutral-900 transition-all duration-200;
 }
 
 .variant__swatch-disabled {
     @apply opacity-50 cursor-not-allowed relative before:content-[''] before:absolute before:w-full before:bg-black before:h-[1px] before:-rotate-45
 }
 
-
 .variant__radio-disabled {
     @apply opacity-50 cursor-not-allowed relative before:content-[''] before:absolute before:w-full before:left-0 before:scale-x-150 before:top-1/2 before:right-0 before:border-t before:border-inherit before:rotate-[-15deg]
 }
 
-img {
-    @apply !w-full !h-full !object-cover
-}
+
 
 
 /* Line item */ 

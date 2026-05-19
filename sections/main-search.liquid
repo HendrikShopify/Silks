@@ -1,30 +1,101 @@
-<script src="{{ 'facets.js' | asset_url }}" defer="defer"></script>
+{% comment %}
+  <script src="{{ 'facets.js' | asset_url }}" defer="defer"></script>
 
-{% paginate search.results by 12 %}
+  {% paginate search.results by 12 %}
+    <div class="container">
+      <h1 class="h2">
+        {%- if search.performed -%}
+          {{- 'templates.search.title' | t -}}
+        {%- else -%}
+          {{- 'general.search.search' | t -}}
+        {%- endif -%}
+      </h1>
+      {% render 'facets', results: search %}
+      <div id="ProductGridContainer" class="container py-20">
+        <ul
+          id="product-grid"
+          data-id="{{ section.id }}"
+          class="product-grid"
+        >
+          {% for result in search.results %}
+            {% if result.object_type == 'product' %}
+              {% render 'card-product', product: result %}
+            {% endif %}
+          {% endfor %}
+          <li></li>
+        </ul>
+
+        {% render 'pagination', paginate: paginate %}
+      </div>
+    </div>
+  {% endpaginate %}
+{% endcomment %}
+
+<section class="pt-[150px] lg:pt-70 bg-[#efedeb]">
   <div class="container">
-    <h1 class="h2">
-      {%- if search.performed -%}
-        {{- 'templates.search.title' | t -}}
-      {%- else -%}
-        {{- 'general.search.search' | t -}}
-      {%- endif -%}
-    </h1>
-    {% render 'facets', results: search %}
-    <div id="ProductGridContainer" class="container py-20">
-      <ul
-        id="product-grid"
-        data-id="{{ section.id }}"
-        class="product-grid"
-      >
-        {% for result in search.results %}
-          {% if result.object_type == 'product' %}
-            {% render 'card-product', product: result %}
+    <div class="flex flex-col lg:flex-row flex-nowrap grid-cols-2 grid-rows-[auto] auto-cols-[1fr] gap-x-[30px] lg:gap-x-4 gap-y-[30px] lg:gap-y-4 justify-start lg:justify-between justify-items-stretch items-start lg:items-end mx-auto max-w-[1470px]">
+      <div class="flex flex-col gap-11">
+        <h2 class="max-w-155 text-5xl sm:text-6xl lg:text-8xl tracking-[-2px] leading-[1.2em!important] text-[#3d312a] font-playfair">
+          {% if search.terms %}
+            {% if search.results.size > 0 %}
+              {{ 'search.title' | t: terms: search.terms }}
+            {% else %}
+              {{ 'search.no_results_title' | t: terms: search.terms | escape }}
+            {% endif %}
+          {% else %}
+            {{ 'general.search.search' | t }}
           {% endif %}
-        {% endfor %}
-        <li></li>
-      </ul>
+        </h2>
+        <form class="flex flex-col" action="#">
+          <label class="absolute -left-[9999px]" for="search-input">{{ 'search.search_placeholder' | t }}</label>
+          <div class="flex justify-between items-center pb-3 border-b-[1.3px] border-b-neutral-200 border-b-solid max-w-100">
+            <input
+              class="border-none outline-none w-full bg-transparent"
+              type="text"
+              name="q"
+              autofocus
+              value="{{ search.terms | escape }}"
+              placeholder="{{ 'search.search_placeholder' | t }}"
 
-      {% render 'pagination', paginate: paginate %}
+            ><button
+              class="flex justify-center items-center p-0 border-none text-[#3d312a] bg-transparent cursor-pointer"
+              type="submit"
+              aria-label="{{ 'search.search_button' | t }}"
+            >
+              <svg
+                class="p-1 size-6"
+                xmlns="http://www.w3.org/2000/svg"
+                width="100%"
+                viewBox="0 0 20 20"
+                fill="none"
+                vector-effect="non-scaling-stroke"
+                stroke-width="1"
+              >
+                <path d="M18.7502 18.7502L14.4072 14.4072M14.4072 14.4072C15.1501 13.6643 15.7394 12.7824 16.1414 11.8118C16.5435 10.8411 16.7504 9.80081 16.7504 8.75021C16.7504 7.6996 16.5435 6.65929 16.1414 5.68866C15.7394 4.71803 15.1501 3.83609 14.4072 3.09321C13.6643 2.35032 12.7824 1.76103 11.8118 1.35898C10.8411 0.956931 9.80081 0.75 8.75021 0.75C7.6996 0.75 6.65929 0.956931 5.68866 1.35898C4.71803 1.76103 3.83609 2.35032 3.09321 3.09321C1.59288 4.59354 0.75 6.62842 0.75 8.75021C0.75 10.872 1.59288 12.9069 3.09321 14.4072C4.59354 15.9075 6.62842 16.7504 8.75021 16.7504C10.872 16.7504 12.9069 15.9075 14.4072 14.4072Z" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <p class="max-w-[490px]">
+        {{ 'search.collection_description' | t }}
+      </p>
     </div>
   </div>
-{% endpaginate %}
+  <div class="container">
+    <div class="pt-5 lg:pt-20 pb-25 lg:pb-50">
+      <div>
+        <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 grid-rows-[auto_auto] auto-cols-[1fr] gap-4 pt-5 lg:pt-20 pb-25 lg:pb-50">
+          {% for result in search.results %}
+            <li>
+              {% if result.object_type == 'product' %}
+                {% render 'card-product', product: result %}
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

@@ -33,8 +33,11 @@ if (!customElements.get('product-form')) {
         delete config.headers['Content-Type'];
 
         const formData = new FormData(this.form);
-        formData.append('sections', ['cart-drawer', 'cart-icon-bubble', 'main-cart']);
-        formData.append('sections_url', window.location.pathname);
+        const sections = CartItems.getSectionsToRequest();
+        if (sections.length) {
+          formData.append('sections', sections);
+          formData.append('sections_url', window.location.pathname);
+        }
         config.body = formData;
 
         fetch(routes.cart_add_url, config)
@@ -45,7 +48,9 @@ if (!customElements.get('product-form')) {
               return;
             }
             CartItems.renderSections(data.sections);
-            document.querySelector('cart-drawer').open(this.submitButton);
+
+            const drawer = document.querySelector('cart-drawer');
+            if (drawer) drawer.open(this.submitButton);
           })
           .catch(err => console.error(err))
           .finally(() => this.setLoading(false));

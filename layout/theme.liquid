@@ -42,6 +42,7 @@
     <script src="{{ 'format-money.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'variant-selects.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'wishlist.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'search-form.js' | asset_url }}" defer="defer"></script>
@@ -61,13 +62,13 @@
     </script>
   </head>
 
-  <body class="font-primary antialiased ">
+  <body class="text-base font-light leading-[1.7em!important] bg-neutral-100 antialiased text-neutral-900">
     <a class="sr-only" href="#MainContent"> Skip to main content </a>
 
     {% render 'loading-bar' %}
 
-    {%- render 'cart-drawer' -%}
-    {%- render 'quick-view-modal' -%}
+    {% comment %} {%- render 'cart-drawer' -%} {% endcomment %}
+    {% comment %} {%- render 'quick-view-modal' -%} {% endcomment %}
 
     {% sections 'header-group' %}
 

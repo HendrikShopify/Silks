@@ -1,0 +1,46 @@
+<quantity-input class="flex gap-3 items-center">
+  <button
+    class="p-0 border-none text-[20px] leading-[20px] text-[#615c56] bg-transparent cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+    name="minus"
+    type="button"
+  >
+    <span class="sr-only">
+      {{- 'products.product.quantity.decrease' | t: product: item.product.title | escape -}}
+    </span>
+    -
+  </button>
+  <input
+    class="quantity__input w-6 text-center text-[16px] leading-[24px] text-[#5b5650] border-0 bg-transparent p-0 focus:ring-0 focus:outline-none appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+    type="number"
+    data-quantity-variant-id="{{ item.variant.id }}"
+    name="updates[]"
+    value="{{ item.quantity }}"
+    data-cart-quantity="{{ cart | item_count_for_variant: item.variant.id }}"
+    min="0"
+    data-min="{{ item.variant.quantity_rule.min | default: 1 }}"
+    step="1"
+    aria-label="{{ 'products.product.quantity.input_label' | t: product: item.product.title | escape }}"
+    id="Quantity-{{ item.index | plus: 1 }}"
+    data-index="{{ item.index | plus: 1 }}"
+  >
+  <button
+    class="p-0 border-none text-[20px] leading-[20px] text-[#615c56] bg-transparent cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+    name="plus"
+    type="button"
+  >
+    <span class="sr-only">
+      {{- 'products.product.quantity.increase' | t: product: item.product.title | escape -}}
+    </span>
+    +
+  </button>
+</quantity-input>
+
+<cart-remove-button
+  class="sr-only"
+  id="Remove-{{ item.index | plus: 1 }}"
+  data-index="{{ item.index | plus: 1 }}"
+>
+  <button type="button">
+    {{ 'sections.cart.remove' | t }}
+  </button>
+</cart-remove-button>

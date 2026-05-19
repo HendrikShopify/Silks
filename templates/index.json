@@ -2,9 +2,17 @@
   "sections": {
     "main": {
       "type": "main-index",
+    },
+    "product-grid": {
+      "type": "product-grid",
+    },
+    "about": {
+      "type": "about",
     }
   },
   "order": [
-    "main"
+    "main",
+    "product-grid",
+    "about"
   ]
 }

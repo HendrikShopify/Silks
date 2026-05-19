@@ -1,0 +1,57 @@
+<div class="pt-10 md:pt-20 pb-25 md:pb-50" -grid="product-grid">
+  <div class="container">
+    <div class="flex flex-row flex-wrap gap-x-[9vw] gap-y-6 md:gap-y-8 pb-15 md:pb-30">
+      <h2 class="max-w-[530px] font-playfair text-3xl md:text-6xl leading-[1.2em] text-neutral-800">
+        {{ section.settings.title }}
+      </h2>
+      <p class="max-w-[490px]">{{ section.settings.description }}</p>
+    </div>
+    <div>
+      <div class="grid grid-cols-[repeat(auto-fit,_minmax(20rem,_1fr))] grid-rows-[auto_auto] auto-cols-[1fr] gap-5 w-full">
+        {% if section.settings.collection_handle %}
+          {% for product in collections[section.settings.collection_handle].products %}
+            {% render 'card-product', product: product %}
+          {% endfor %}
+        {% else %}
+          {% for product in collections.all.products %}
+            {% render 'card-product', product: product %}
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Section Settings -->
+{% schema %}
+{
+  "name": "product",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Crafted Collections Built to Perform."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Every collection tells a story of precision, durability, and design. From industrial-inspired finishes to refined, functional details, each piece is made to elevate performance without losing character. Explore our full range and find the collection that fits your way of working."
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection",
+      "info": "Select the collection to display in the product grid."
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "product"
+    }
+  ]
+}
+{% endschema %}

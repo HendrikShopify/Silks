@@ -1,50 +1,108 @@
-{% render 'breadcrumbs' %}
-{% paginate collection.products by 3 %}
-  <div class="container section-padding-md">
-    <div class="default-grid">
-      <h1 class="h1 col-span-6">
-        {{ collection.title }}
-      </h1>
-      <div class="col-span-6">
-        <div class="max-w-xl">
-          {{ collection.description | truncatewords: 50 }}
+{% comment %}
+  {% render 'breadcrumbs' %}
+  {% paginate collection.products by 3 %}
+    <div class="container section-padding-md">
+      <div class="default-grid">
+        <h1 class="h1 col-span-6">
+          {{ collection.title }}
+        </h1>
+        <div class="col-span-6">
+          <div class="max-w-xl">
+            {{ collection.description | truncatewords: 50 }}
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-12 py-20 gap-5">
+        <div class="col-span-12 flex justify-between items-center gap-5">
+          <div class="flex gap-5 items-center">
+            {% render 'facets__counts', results: collection %}
+            {% render 'facets__active-filters', results: collection, results_url: collection.url %}
+          </div>
+
+          <facet-filters-form>
+            <form>
+              {% render 'facets__sorting', results: collection %}
+            </form>
+          </facet-filters-form>
+        </div>
+
+        <div class="col-span-3 max-w-sm">
+          {% render 'facets', results: collection %}
+        </div>
+
+        <div class="col-span-9" id="ProductGridContainer">
+          <ul
+            id="product-grid"
+            data-id="{{ section.id }}"
+            class="product-grid"
+          >
+            {% for product in collection.products %}
+              {% render 'card-product', product: product %}
+            {% endfor %}
+            <li></li>
+          </ul>
+          <div class="">
+            {% render 'pagination', paginate: paginate %}
+          </div>
         </div>
       </div>
     </div>
+  {% endpaginate %}
+{% endcomment %}
 
-    <div class="grid grid-cols-12 py-20 gap-5">
-      <div class="col-span-12 flex justify-between items-center gap-5">
-        <div class="flex gap-5 items-center">
-          {% render 'facets__counts', results: collection %}
-          {% render 'facets__active-filters', results: collection, results_url: collection.url %}
-        </div>
-
-        <facet-filters-form>
-          <form>
-            {% render 'facets__sorting', results: collection %}
-          </form>
-        </facet-filters-form>
+<section class="pt-40 lg:pt-70">
+  <div class="container">
+    <div class="flex flex-row flex-wrap lg:flex-nowrap gap-x-10 lg:gap-x-[6rem] gap-y-10 lg:gap-y-[6rem] justify-between items-center mx-auto max-w-360">
+      <div class="basis-auto grow shrink">
+        <h2 class="font-playfair text-6xl sm:text-6xl lg:text-8xl font-normal tracking-[-0.06rem] leading-[1.02]">
+          {{ section.settings.intro_title }}
+        </h2>
       </div>
-
-      <div class="col-span-3 max-w-sm">
-        {% render 'facets', results: collection %}
-      </div>
-
-      <div class="col-span-9" id="ProductGridContainer">
-        <ul
-          id="product-grid"
-          data-id="{{ section.id }}"
-          class="product-grid"
-        >
-          {% for product in collection.products %}
-            {% render 'card-product', product: product %}
-          {% endfor %}
-          <li></li>
-        </ul>
-        <div class="">
-          {% render 'pagination', paginate: paginate %}
-        </div>
+      <div class="max-w-[490px]">
+        <p>{{ section.settings.description }}</p>
       </div>
     </div>
   </div>
-{% endpaginate %}
+  <div class="container">
+    <div class="mt-10 lg:mt-20 pb-25 lg:pb-50">
+      <div>
+        <ul class="grid grid-cols-[repeat(auto-fit,_minmax(20rem,_1fr))] grid-rows-[auto_auto] auto-cols-[1fr] gap-5 w-full">
+          {% for product in collection.products %}
+            <li>
+              {% render 'card-product', product: product %}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section Settings -->
+{% schema %}
+{
+  "name": "collection",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "intro_title",
+      "label": "Intro title",
+      "default": "Crafted Collections Built to Perform."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Every collection tells a story of precision, durability, and design. From industrial-inspired finishes to refined, functional details, each piece is made to elevate performance without losing character. Explore our full range and find the collection that fits your way of working."
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "collection"
+    }
+  ]
+}
+{% endschema %}

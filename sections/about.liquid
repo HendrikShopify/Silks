@@ -1,0 +1,87 @@
+<div class="pt-10 md:pt-20 pb-25 md:pb-50 min-h-30 [background-image:linear-gradient(180deg,_#f4f2ef,_#d7d0c8)]">
+  <div class="container">
+    <div class="ml-[0vw] lg:ml-[20vw] max-w-265 leading-[1.7em!important]">
+      <p class="text-xl font-playfair md:text-5xl leading-[1.5em] md:leading-[1.4em]">{{ section.settings.intro }}</p>
+    </div>
+  </div>
+  <div class="flex justify-start items-center mt-10 md:mt-17 mb-10 md:mb-17 pl-10 md:pl-35">
+    <div class="inline-block pt-3 pr-[30px] pb-3 pl-[30px] border-[1.3px] border-neutral-300 border-solid rounded-[100px] whitespace-nowrap">
+      <div>{{ section.settings.eyebrow }}</div>
+    </div>
+    <div class="border-t-[1.3px] border-t-neutral-300 border-t-solid w-full"></div>
+  </div>
+  <div class="container">
+    <div class="flex justify-end items-center">
+      <div class="mr-0 lg:mr-25 max-w-[918px]">
+        <h2 class="mb-5 font-playfair text-xl leading-[1.5em]">{{ section.settings.title }}</h2>
+        <p class="mb-[30px]">{{ section.settings.description }}</p>
+        <a class="btn-secondary" href="{{ section.settings.link }}"
+          ><span>{{ section.settings.cta }}</span
+          ><span class="flex justify-center items-center p-0 rounded-[100vw] size-[31px] text-neutral-100 bg-neutral-300">
+            <svg
+              class="w-[11px]"
+              xmlns="http://www.w3.org/2000/svg"
+              width="100%"
+              viewBox="0 0 12 10"
+              fill="none"
+              vector-effect="non-scaling-stroke"
+              stroke-width="1"
+            >
+              <path d="M11.5 5L6.91667 0.5M11.5 5L6.91667 9.5M11.5 5H0.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+            </svg></span
+        ></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Section Settings -->
+{% schema %}
+{
+  "name": "about",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "intro",
+      "label": "Intro",
+      "default": "SILKS was born from the belief that movement and elegance can coexist. In a world that often celebrates speed, SILKS invites you to slow down, to move with purpose, to feel present in your own rhythm."
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "About us"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "SILKS was born from the belief that movement and elegance can coexist."
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "CTA",
+      "default": "Our collection"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "A refined collection created to elevate the everyday. Each design blends performance and poise, crafted from soft, breathable materials that follow your every move. From morning routines to evening reflections, SILKS moves with you, effortlessly, gracefully, and with timeless intention. A refined collection designed to elevate the everyday. Each piece blends performance and elegance, made to move effortlessly with you, wherever the day takes you. A refined collection designed to elevate the everyday. Each piece blends performance and elegance, made to move effortlessly with you, wherever the day takes you."
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "about"
+    }
+  ]
+}
+{% endschema %}

@@ -1,12 +1,22 @@
 <div id="cart-icon-bubble">
-  <span>{{ 'icon__cart.svg' | inline_asset_content }}</span>
-  <span class="sr-only">{{ 'templates.cart.cart' | t }}</span>
+  <svg
+    class="w-[17px]"
+    xmlns="http://www.w3.org/2000/svg"
+    width="100%"
+    viewBox="0 0 19 20"
+    fill="none"
+    vector-effect="non-scaling-stroke"
+    stroke-width="1.5"
+  >
+    <path d="M5 6.28846V4.90385C5 3.80218 5.44777 2.74563 6.2448 1.96663C7.04183 1.18764 8.12283 0.75 9.25 0.75C10.3772 0.75 11.4582 1.18764 12.2552 1.96663C13.0522 2.74563 13.5 3.80218 13.5 4.90385V6.28846M1.45833 6.28846C1.27047 6.28846 1.0903 6.3614 0.957466 6.49123C0.824628 6.62107 0.75 6.79716 0.75 6.98077V16.3269C0.75 17.6354 1.89042 18.75 3.22917 18.75H15.2708C16.6096 18.75 17.75 17.6895 17.75 16.381V6.98077C17.75 6.79716 17.6754 6.62107 17.5425 6.49123C17.4097 6.3614 17.2295 6.28846 17.0417 6.28846H1.45833Z" stroke="#3B322B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+  </svg>
+  <span class="sr-only">Cart</span>
   {%- if cart != empty -%}
-    <div class="header__item-count">
+    <div class="absolute top-[0%] -right-[10%] z-10 p-1 size-5 text-xs bg-neutral-900 text-neutral-100 rounded-full flex justify-center items-center">
       {%- if cart.item_count < 100 -%}
         <span aria-hidden="true">{{ cart.item_count }}</span>
       {%- endif -%}
-      <span class="sr-only">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
+      <span class="sr-only">Cart items: {{ cart.item_count }}</span>
     </div>
   {%- endif -%}
 </div>

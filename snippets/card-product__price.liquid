@@ -1,17 +1,34 @@
 {%- liquid
-  assign variant = product.selected_or_first_available_variant
-  assign price = variant.price | money
-  assign compare_at_price = variant.compare_at_price | money
-  if variant.compare_at_price > variant.price
-    assign on_sale = true
+  assign target = product
+
+  if use_variant
+    assign target = product.selected_or_first_available_variant
+  endif
+
+  assign price = target.price | default: 1999
+  assign compare_at_price = target.compare_at_price
+
+  assign money_price = price | money
+  assign money_compare_at_price = compare_at_price | money
+
+  if settings.currency_code_enabled
+    assign money_price = price | money_with_currency
+    assign money_compare_at_price = compare_at_price | money_with_currency
   endif
 -%}
 
-<div data-replace="price" class="flex flex-row gap-2">
-  {%- if on_sale -%}
-    <span class="sr-only">regular price</span>
-    <s class="text-small">{{ compare_at_price }}</s>
-    <span class="sr-only">sale price</span>
+<div aria-live="polite">
+  <span>
+    {%- if product.price_varies -%}
+      From {{ money_price }}
+    {%- else -%}
+      {{ money_price }}
+    {%- endif -%}
+  </span>
+
+  {%- if compare_at_price > price -%}
+    <s>
+      {{ money_compare_at_price }}
+    </s>
   {%- endif -%}
-  <span class="text-small">{{ price }}</span>
 </div>

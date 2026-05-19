@@ -1,7 +1,8 @@
 {%- assign product_form_id = 'product-form-' | append: section.id -%}
 
-{% render 'breadcrumbs' %}
-
+<script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+{% comment %} {% render 'breadcrumbs' %} {% endcomment %}
 <product-info
   id="MainProduct-{{ section.id }}"
   class=""
@@ -10,40 +11,76 @@
   data-update-url="true"
   data-url="{{ product.url }}"
 >
-  <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
-  <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
-
-  <div class="container default-grid py-8">
-    <div class="col-span-6">
-      {% render 'product__media-slider', product: product %}
-    </div>
-
-    <div class="col-span-6 md:px-25 flex flex-col gap-10 py-30">
-      <div class="flex flex-col gap-2">
-        <div class="flex justify-between">
-          <h1 class="h3">{{ product.title }} heu</h1>
-          {% render 'wishlist__button' %}
-        </div>
-        {% render 'card-product__price' %}
+  <div class="container">
+    <section class="flex flex-col lg:flex-row flex-nowrap grid-cols-[27rem_1fr] grid-rows-[auto_auto] gap-x-15 sm:gap-x-0 gap-y-15 sm:gap-y-[5.5rem] pt-[150px] lg:pt-[230px] pb-[52.5px] sm:pb-[105px] lg:pb-[210px] bg-[#f3f0ee]">
+      <div class="flex flex-row lg:flex-col flex-nowrap basis-auto grow-0 shrink-0 gap-x-[15px] md:gap-x-5 lg:gap-x-0 gap-y-[15px] md:gap-y-5 lg:gap-y-[1rem] -ml-[15px] md:-ml-10 lg:ml-0 pr-[15px] md:pr-10 lg:pr-0 pl-[15px] md:pl-10 lg:pl-0 w-screen lg:w-[40vw] overflow-scroll lg:overflow-visible">
+        {% for media in product.media %}
+          {% case media.media_type %}
+            {% when 'image' %}
+              <div
+                data-media="{{ media.id }}"
+                class="block aspect-square rounded-4xl w-[80%] md:w-full overflow-hidden basis-auto grow-0 shrink-0"
+              >
+                <img
+                  class="size-full object-cover"
+                  srcset="
+                    {%- if media.image.width >= 550 -%}{{ media.image | image_url: width: 550 }} 550w,{%- endif -%}
+                    {%- if media.image.width >= 1100 -%}{{ media.image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                    {%- if media.image.width >= 1445 -%}{{ media.image | image_url: width: 1445 }} 1445w,{%- endif -%}
+                    {%- if media.image.width >= 1680 -%}{{ media.image | image_url: width: 1680 }} 1680w,{%- endif -%}
+                    {%- if media.image.width >= 2048 -%}{{ media.image | image_url: width: 2048 }} 2048w,{%- endif -%}
+                    {%- if media.image.width >= 2200 -%}{{ media.image | image_url: width: 2200 }} 2200w,{%- endif -%}
+                    {%- if media.image.width >= 2890 -%}{{ media.image | image_url: width: 2890 }} 2890w,{%- endif -%}
+                    {%- if media.image.width >= 4096 -%}{{ media.image | image_url: width: 4096 }} 4096w,{%- endif -%}
+                    {{ media.image | image_url }} {{ media.image.width }}w
+                  "
+                  sizes="(min-width: 750px) calc(100vw - 22rem), 1100px"
+                  src="{{ media.image | image_url: width: 1445 }}"
+                  alt="{{ media.alt | escape }}"
+                  loading="lazy"
+                  width="1000"
+                  height="{{ 1100 | divided_by: media.image.aspect_ratio | ceil }}"
+                  data-media-id="{{ media.id }}"
+                >
+              </div>
+            {% when 'video' %}
+              <div class="block aspect-square rounded-4xl w-[80%] md:w-full overflow-hidden basis-auto grow-0 shrink-0">
+                <div class="size-full object-cover">{{ media | video_tag: controls: true }}</div>
+              </div>
+          {% endcase %}
+        {% endfor %}
       </div>
-
-      {% for block in section.blocks %}
-        {% if block.type == '@app' %}
-          {% render block %}
+      <div class="pt-0 md:pt-[70px] lg:pt-15 pr-0 md:pr-[70px] lg:pr-25 pb-0 md:pb-[70px] lg:pb-0 pl-0 md:pl-[70px] lg:pl-35">
+        <div class="mb-5 md:mb-10">
+          <h2 class="text-5xl sm:text-7xl md:text-8xl tracking-[-0.08rem] leading-[1.2em] font-playfair">
+            {{ product.title }}
+          </h2>
+          <p class="mx-0 mt-[30px] md:mt-30 mb-0 max-w-187 font-normal">
+            {{ product.description | strip_html }}
+          </p>
+        </div>
+        {% if product.metafields.custom.key_features %}
+          <div class="pt-[30px] pr-0 pb-[30px] pl-0 border-t border-b border-t-[#cfc3bc] border-b-[#cfc3bc] border-t-solid border-b-solid">
+            <h2 class="p-0 border-[0] w-full text-[1.05rem] leading-[1.4] text-left bg-transparent cursor-pointer">
+              Key Features And Materials
+            </h2>
+            <div class="pt-[30px]">
+              <p>
+                {{ product.metafields.custom.key_features }}
+              </p>
+            </div>
+          </div>
         {% endif %}
-      {% endfor %}
 
-      {% render 'selling_plans', product: product, product_form_id: product_form_id, section_id: section.id %}
-
-      <div class="flex flex-col gap-8">
-        {% render 'product__variant-picker', product: product, product_form_id: product_form_id %}
-
-        <div class="flex gap-1">
-          {% render 'product__quantity-input', product: product, product_form_id: product_form_id %}
+        <div class="flex flex-col gap-[2rem] mt-[75px] md:mt-[150px]">
+          <div class="text-neutral-200">
+            {% render 'card-product__price', product: product %}
+          </div>
+          {% render 'product__variant-picker', product: product, product_form_id: product_form_id %}
           {%- render 'product__form', product: product, product_form_id: product_form_id, section_id: section.id -%}
         </div>
       </div>
-    </div>
+    </section>
   </div>
 </product-info>
 
@@ -51,20 +88,82 @@
   {{ product | structured_data }}
 </script>
 
+<!-- Section Settings -->
+{% schema %}
+{
+  "name": "main",
+  "tag": "section",
+  "settings": [],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "main"
+    }
+  ]
+}
+{% endschema %}
+
 {% comment %}
-  {% schema %}
-  {
-    "name": "Custom Section",
-    "blocks": [
-      {
-        "type": "@app"
-      }
-    ],
-    "presets": [
-      {
-        "name": "Custom Section"
-      }
-    ]
-  }
-  {% endschema %}
+  <product-info
+    id="MainProduct-{{ section.id }}"
+    class=""
+    data-section="{{ section.id }}"
+    data-product-id="{{ product.id }}"
+    data-update-url="true"
+    data-url="{{ product.url }}"
+  >
+    <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+
+    <div class="container default-grid py-8">
+      <div class="col-span-6">
+        {% render 'product__media-slider', product: product %}
+      </div>
+
+      <div class="col-span-6 md:px-25 flex flex-col gap-10 py-30">
+        <div class="flex flex-col gap-2">
+          <div class="flex justify-between">
+            <h1 class="h3">{{ product.title }} heu</h1>
+            {% render 'wishlist__button' %}
+          </div>
+          {% render 'card-product__price' %}
+        </div>
+
+        {% for block in section.blocks %}
+          {% if block.type == '@app' %}
+            {% render block %}
+          {% endif %}
+        {% endfor %}
+
+        {% render 'selling_plans', product: product, product_form_id: product_form_id, section_id: section.id %}
+
+        <div class="flex flex-col gap-8">
+          {% render 'product__variant-picker', product: product, product_form_id: product_form_id %}
+
+          <div class="flex gap-1">
+            {% render 'product__quantity-input', product: product, product_form_id: product_form_id %}
+            {%- render 'product__form', product: product, product_form_id: product_form_id, section_id: section.id -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </product-info>
+
+  {% comment %}
+    {% schema %}
+    {
+      "name": "Custom Section",
+      "blocks": [
+        {
+          "type": "@app"
+        }
+      ],
+      "presets": [
+        {
+          "name": "Custom Section"
+        }
+      ]
+    }
+    {% endschema %}
+  {% endcomment %}
 {% endcomment %}

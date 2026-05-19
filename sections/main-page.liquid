@@ -1,12 +1,18 @@
-{% render 'breadcrumbs' %}
-<div class="container section-padding-sm">
-  <div class="default-grid">
-    <div class="col-span-6 col-start-2">
-      <h1 class="h1">
-        {{ page.title }}
-      </h1>
-
-      <div class="rich-text">
+<div class="pt-40 lg:pt-[290px] pb-50 bg-[#f3f0ec]">
+  <div class="container">
+    <div class="flex flex-col lg:flex-row flex-nowrap grid-cols-[360px_1fr] gap-x-[50px] lg:gap-x-23 gap-y-[50px] lg:gap-y-23 justify-between alignItems-[start] mx-auto w-full max-w-370">
+      <div class="flex flex-col gap-11 pt-2 w-full lg:w-auto">
+        <h2 class="text-5xl lg:text-7xl tracking-[-2px] leading-[1.2em!important] text-[#342d29] font-playfair">
+          {{ page.title }}
+        </h2>
+        {% comment %}
+          <p class="max-w-100 leading-[1.7]">
+            Each drop is shaped by timeless silhouettes, elevated materials, and a touch of understated luxury, made to
+            accompany you through every chapter of your day.
+          </p>
+        {% endcomment %}
+      </div>
+      <div class="flex flex-col gap-x-5 lg:gap-x-11 gap-y-5 lg:gap-y-11 w-full max-w-[850px] rich-text">
         {{ page.content }}
       </div>
     </div>

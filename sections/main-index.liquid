@@ -1,0 +1,84 @@
+<div class="flex justify-between items-stretch pt-[15px] sm:pt-[15px] md:pt-10 pr-[15px] sm:pr-[15px] md:pr-10 pb-[15px] sm:pb-[15px] md:pb-10 pl-[15px] sm:pl-[15px] md:pl-10 h-screen min-h-screen">
+  <div class="relative rounded-4xl size-full overflow-hidden">
+    <div class="flex relative flex-col lg:flex-row flex-nowrap lg:flex-nowrap gap-x-8 sm:gap-x-10 lg:gap-x-45 gap-y-8 sm:gap-y-10 lg:gap-y-45 justify-end lg:justify-between items-end lg:items-end pt-8 sm:pt-[90px] pr-8 sm:pr-14 lg:pr-[ clamp(40px, 10vw, 170px)] pb-8 sm:pb-14 lg:pb-[90px] pl-8 sm:pl-14 lg:pl-[ clamp(40px, 10vw, 170px)] h-full z-[1] overflow-auto">
+      <div class="max-w-[830px]">
+        <h1 class="text-[35px] md:text-[clamp(55px,_4vw,_90px)] leading-[1.2] font-playfair">
+          {{ section.settings.title }}
+        </h1>
+      </div>
+      <div class="flex flex-col flex-nowrap gap-x-6 sm:gap-x-[35px] gap-y-6 sm:gap-y-[35px] justify-end lg:justify-end items-start lg:items-end w-full lg:w-auto max-w-none lg:max-w-[290px] text-left lg:text-right">
+        <p>{{ section.settings.description }}</p>
+        <a class="btn-secondary" href="{{ section.settings.link }}"
+          ><span>{{ section.settings.cta }}</span
+          ><span class="flex justify-center items-center p-0 rounded-[100vw] size-[31px] text-neutral-100 bg-neutral-300">
+            <svg
+              class="w-[11px]"
+              xmlns="http://www.w3.org/2000/svg"
+              width="100%"
+              viewBox="0 0 12 10"
+              fill="none"
+              vector-effect="non-scaling-stroke"
+              stroke-width="1"
+            >
+              <path d="M11.5 5L6.91667 0.5M11.5 5L6.91667 9.5M11.5 5H0.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+            </svg></span
+        ></a>
+      </div>
+    </div>
+    <img
+      class="absolute inset-[0%] size-full object-cover"
+      src="{{ section.settings.image | image_url: width: 1700 }}"
+      srcset="
+        {{ section.settings.image | image_url: width: 425 }} 425w,
+        {{ section.settings.image | image_url: width: 850 }} 850w,
+        {{ section.settings.image | image_url: width: 1139 }} 1139w,
+        {{ section.settings.image | image_url: width: 1700 }} 1700w
+      "
+      sizes="(max-width: 850px) 425px, (max-width: 1139px) 850px, (max-width: 1700px) 1139px, 1700px"
+    >
+  </div>
+</div>
+
+<!-- Section Settings -->
+{% schema %}
+{
+  "name": "Hero",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Created for the modern woman who moves through life."
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "CTA",
+      "default": "Discover the collection"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Movement is freedom, and style should follow. SILKS combines refined design with effortless comfort, creating pieces that let you move, pause, and breathe in confidence."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "Hero"
+    }
+  ]
+}
+{% endschema %}

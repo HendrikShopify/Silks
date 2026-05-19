@@ -2,9 +2,13 @@
   "sections": {
     "main": {
       "type": "main-product",
-      }    
+    },
+    "cross-sell": {
+      "type": "cross-sell",
+    }
   },
   "order": [
-    "main"
+    "main",
+    "cross-sell"
   ]
 }

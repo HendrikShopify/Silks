@@ -1,0 +1,30 @@
+{
+    "general": {
+        "search": {
+            "search": "Search for products"
+        }
+    },
+    "cart": {
+        "empty_state_heading": "Your cart is empty",
+        "continue_shopping_button": "Continue Shopping",
+        "loading_status": "Loading...",
+        "summary_heading": "Summary",
+        "subtotal_label": "Subtotal",
+        "shipping_label": "Shipping",
+        "shipping_calculated_notice": "Calculated at check out",
+        "checkout_button": "Checkout",
+        "free_shipping_label": "Free shipping",
+        "shipping_delivery_notice": "Your items will be delivered by UPS in an estimated 1 to 3 business days, with real-time tracking once your order ships."
+    },
+    "search": {
+        "title": "Results for “{{ terms }}”",
+        "no_results_title": "No results for “{{ terms }}”",
+        "search_placeholder": "Search",
+        "search_button": "Search",
+        "collection_description": "Every collection tells a story of precision, durability, and design. From industrial-inspired finishes to refined, functional details, each piece is made to elevate performance without losing character. Explore our full range and find the collection that fits your way of working."
+    },
+    "404": {
+        "title": "This page couldn’t keep up with you.",
+        "description": "You must experience this often right?",
+    }
+}

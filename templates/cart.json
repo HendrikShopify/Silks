@@ -3,8 +3,12 @@
     "main": {
       "type": "main-cart",
     },
+    "big-image": {
+      "type": "big-image",
+    }
   },
   "order": [
     "main",
+    "big-image",
   ]
 }

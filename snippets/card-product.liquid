@@ -1,40 +1,81 @@
 <product-card
   data-variant-id="{{ product.selected_or_first_available_variant.id }}"
-  class="relative flex flex-col gap-2"
+  class="relative"
 >
-  <div class="flex flex-col items-center justify-center z-20 absolute top-0 right-0 m-2 gap-">
-    {% render 'wishlist__button', product: product %}
-    {% render 'card-product__quick-view', product: product %}
+  <div class="grid grid-cols-[repeat(auto-fit,_minmax(20rem,_1fr))] grid-rows-[auto_auto] auto-cols-[1fr] gap-5 w-full">
+    <div>
+      <div class="aspect-[397/540] rounded-4xl overflow-hidden">
+        <img
+          class="size-full object-cover"
+          srcset="
+            {%- if product.featured_media.width >= 165 -%}{{ product.featured_media | image_url: width: 165 }} 165w,{%- endif -%}
+            {%- if product.featured_media.width >= 360 -%}{{ product.featured_media | image_url: width: 360 }} 360w,{%- endif -%}
+            {%- if product.featured_media.width >= 533 -%}{{ product.featured_media | image_url: width: 533 }} 533w,{%- endif -%}
+            {%- if product.featured_media.width >= 720 -%}{{ product.featured_media | image_url: width: 720 }} 720w,{%- endif -%}
+            {%- if product.featured_media.width >= 940 -%}{{ product.featured_media | image_url: width: 940 }} 940w,{%- endif -%}
+            {%- if product.featured_media.width >= 1066 -%}{{ product.featured_media | image_url: width: 1066 }} 1066w,{%- endif -%}
+            {{ product.featured_media | image_url }} {{ product.featured_media.width }}w
+          "
+          src="{{ product.featured_media | image_url: width: 533 }}"
+          alt="{{ product.featured_media.alt | escape }}"
+          width="{{ product.featured_media.width }}"
+          height="{{ product.featured_media.height }}"
+        >
+      </div>
+      <div class="flex flex-col flex-nowrap gap-3 mt-3 pl-[29px]">
+        <h3 class="text-xl leading-[1.2] font-playfair">
+          <a href="{{ product.url }}">
+            <span class="absolute inset-0 z-10"></span>
+            {{ product.title }}
+          </a>
+        </h3>
+        <div class="text-neutral-200">
+          <div>{% render 'card-product__price', product: product %}</div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="!aspect-square rounded-xs overflow-hidden">
-    <img
-      class="!aspect-square object-contain"
-      srcset="
-        {%- if product.featured_media.width >= 165 -%}{{ product.featured_media | image_url: width: 165 }} 165w,{%- endif -%}
-        {%- if product.featured_media.width >= 360 -%}{{ product.featured_media | image_url: width: 360 }} 360w,{%- endif -%}
-        {%- if product.featured_media.width >= 533 -%}{{ product.featured_media | image_url: width: 533 }} 533w,{%- endif -%}
-        {%- if product.featured_media.width >= 720 -%}{{ product.featured_media | image_url: width: 720 }} 720w,{%- endif -%}
-        {%- if product.featured_media.width >= 940 -%}{{ product.featured_media | image_url: width: 940 }} 940w,{%- endif -%}
-        {%- if product.featured_media.width >= 1066 -%}{{ product.featured_media | image_url: width: 1066 }} 1066w,{%- endif -%}
-        {{ product.featured_media | image_url }} {{ product.featured_media.width }}w
-      "
-      src="{{ product.featured_media | image_url: width: 533 }}"
-      alt="{{ product.featured_media.alt | escape }}"
-      width="{{ product.featured_media.width }}"
-      height="{{ product.featured_media.height }}"
-    >
-  </div>
-  <h2 class="text-main">
-    <a
-      href="{{ product.url }}"
-      class="absolute inset-0 z-10"
-    ></a>
-    {{ product.title }}
-  </h2>
-
-  <div class="text-xs">
-    {% render 'card-product__price', product: product %}
-  </div>
-
-  {% comment %} {% render 'card-product__swatches', product: product %} {% endcomment %}
 </product-card>
+
+{% comment %}
+  <product-card
+    data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+    class="relative flex flex-col gap-2"
+  >
+    <div class="flex flex-col items-center justify-center z-20 absolute top-0 right-0 m-2 gap-">
+      {% render 'wishlist__button', product: product %}
+      {% render 'card-product__quick-view', product: product %}
+    </div>
+    <div class="!aspect-square rounded-xs overflow-hidden">
+      <img
+        class="!aspect-square object-contain"
+        srcset="
+          {%- if product.featured_media.width >= 165 -%}{{ product.featured_media | image_url: width: 165 }} 165w,{%- endif -%}
+          {%- if product.featured_media.width >= 360 -%}{{ product.featured_media | image_url: width: 360 }} 360w,{%- endif -%}
+          {%- if product.featured_media.width >= 533 -%}{{ product.featured_media | image_url: width: 533 }} 533w,{%- endif -%}
+          {%- if product.featured_media.width >= 720 -%}{{ product.featured_media | image_url: width: 720 }} 720w,{%- endif -%}
+          {%- if product.featured_media.width >= 940 -%}{{ product.featured_media | image_url: width: 940 }} 940w,{%- endif -%}
+          {%- if product.featured_media.width >= 1066 -%}{{ product.featured_media | image_url: width: 1066 }} 1066w,{%- endif -%}
+          {{ product.featured_media | image_url }} {{ product.featured_media.width }}w
+        "
+        src="{{ product.featured_media | image_url: width: 533 }}"
+        alt="{{ product.featured_media.alt | escape }}"
+        width="{{ product.featured_media.width }}"
+        height="{{ product.featured_media.height }}"
+      >
+    </div>
+    <h2 class="text-main">
+      <a
+        href="{{ product.url }}"
+        class="absolute inset-0 z-10"
+      ></a>
+      {{ product.title }}
+    </h2>
+
+    <div class="text-xs">
+      {% render 'card-product__price', product: product %}
+    </div>
+
+    {% comment %} {% render 'card-product__swatches', product: product %} {% endcomment %}
+  </product-card>
+{% endcomment %}
