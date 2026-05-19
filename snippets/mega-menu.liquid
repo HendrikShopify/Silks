@@ -1,0 +1,130 @@
+<div class="fixed inset-0 bg-neutral-100 z-100" role="dialog" aria-modal="true" aria-labelledby="mega-menu-title">
+  <div class="flex flex-col md:flex-row flex-nowrap justify-start md:justify-between items-stretch w-full h-screen md:h-full bg-neutral-100 overflow-scroll md:overflow-visible overflow-x-hidden overflow-y-hidden">
+    <div class="flex flex-col basis-auto grow-0 shrink-0 md:shrink justify-start md:justify-end items-stretch md:items-stretch pt-[15px] sm:pt-10 md:pt-[105px] pr-[15px] sm:pr-10 md:pr-0 pb-[15px] sm:pb-10 md:pb-10 pl-[15px] sm:pl-10 md:pl-[7vw]">
+      <div class="mb-15 md:mb-auto"><img class="max-w-30" src="{{ 'logo.svg' | asset_url }}"></div>
+      <div class="mb-10 sm:mb-[85px]" aria-label="Main">
+        <accordion-list id="">
+          {% for link in linklists['main-menu'].links %}
+            {% case link.levels %}
+              {% when 1 %}
+                <div class="mb-[22.5px] md:mb-[45px]">
+                  <a
+                    class="inline-flex gap-[15px] mb-3 border-none text-xl bg-[none] cursor-pointer"
+                    href="{{ link.url }}"
+                  >
+                    <span class="font-playfair">{{ link.title }}</span>
+                  </a>
+                </div>
+
+              {% when 2 %}
+                <div class="mb-[22.5px] md:mb-[45px]" data-accordion-item>
+                  <button
+                    class="inline-flex gap-[15px] mb-3 border-none text-xl bg-[none] cursor-pointer"
+                    aria-expanded="false"
+                    aria-controls="menu-{{ forloop.index }}"
+                    data-accordion-trigger
+                  >
+                    <span class="font-playfair">{{ link.title }}</span>
+
+                    <svg
+                      class="w-[7px]"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="100%"
+                      viewBox="0 0 8 5"
+                      fill="none"
+                      vector-effect="non-scaling-stroke"
+                      stroke-width="1"
+                    >
+                      <path
+                        d="M7.5 0.500001L4 4.5L0.499999 0.500002"
+                        stroke="#B48C7A"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1"
+                      ></path>
+                    </svg>
+                  </button>
+
+                  <div class="h-0 overflow-hidden">
+                    <ul
+                      id="menu-{{ forloop.index }}"
+                      class="flex flex-col flex-nowrap gap-[10px]"
+                      role="region"
+                    >
+                      {% for child_link in link.links %}
+                        <li>
+                          <a href="{{ child_link.url }}">
+                            <span>{{ child_link.title }}</span>
+                          </a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </div>
+            {% endcase %}
+          {% endfor %}
+        </accordion-list>
+      </div>
+      <div>
+        <ul class="flex gap-4 w-full">
+          <li>
+            <a><span>Privacy policy</span></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="flex sm:block relative basis-[0%] grow shrink justify-start items-end sm:items-stretch pt-[15px] md:pt-10 pr-[15px] md:pr-10 pb-[15px] md:pb-10 pl-[15px] md:pl-10 max-w-225">
+      <div class="relative rounded-[24px] w-full h-auto md:h-full overflow-x-hidden overflow-y-hidden">
+        <img
+          class="absolute inset-[0%] size-full object-cover"
+          src="{{ section.settings.image | image_url: width: 900 }}"
+          srcset="
+            {{ section.settings.image | image_url: width: 225 }} 225w,
+            {{ section.settings.image | image_url: width: 450 }} 450w,
+            {{ section.settings.image | image_url: width: 603 }} 603w,
+            {{ section.settings.image | image_url: width: 900 }} 900w
+          "
+          sizes="(max-width: 450px) 225px, (max-width: 603px) 450px, (max-width: 900px) 603px, 900px"
+        >
+        <div class="flex relative inset-0 flex-col justify-start md:justify-end items-start md:items-start mt-auto sm:mt-0 pt-8 sm:pt-10 lg:pt-12 pr-8 sm:pr-10 lg:pr-5 pb-8 sm:pb-10 lg:pb-[70px] pl-8 sm:pl-10 lg:pl-25 h-auto md:h-full text-neutral-400 [background-image:radial-gradient(circle_farthest-corner_at_100%_0%,_hsla(0,_0.00%,_0.00%,_0.00),_rgba(59,_50,_43,_0.19)_16%,_rgba(59,_50,_43,_0.61)_50%,_#3b322b)] opacity-90">
+          <h2 class="mb-5 md:mb-10 max-w-[530px] text-xl md:text-7xl leading-[1.2em] font-playfair">
+            {{ section.settings.title }}
+          </h2>
+          <p class="mb-[15px] md:mb-[30px] max-w-105 text-neutral-100">{{ section.settings.description }}</p>
+          <a class="btn-secondary" href="{{ section.settings.link }}"
+            ><span>{{ section.settings.cta }}</span
+            ><span class="flex justify-center items-center p-0 rounded-[100vw] size-[31px] text-neutral-100 bg-neutral-300">
+              <svg
+                class="w-[11px] transform-[rotate(90deg)]"
+                xmlns="http://www.w3.org/2000/svg"
+                width="100%"
+                viewBox="0 0 12 10"
+                fill="none"
+                vector-effect="non-scaling-stroke"
+                stroke-width="1"
+              >
+                <path d="M11.5 5L6.91667 0.5M11.5 5L6.91667 9.5M11.5 5H0.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+              </svg></span
+          ></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    class="absolute top-[15px] sm:top-10 md:top-13 right-[15px] sm:right-10 md:right-13 p-[10px] border-none size-9 z-0 md:z-auto text-neutral-900 md:text-neutral-100 bg-transparent cursor-pointer"
+    aria-label="Close menu"
+    data-close-menu=""
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="100%"
+      viewBox="0 0 21 21"
+      fill="none"
+      vector-effect="non-scaling-stroke"
+      stroke-width="2"
+    >
+      <line x1="1.41421" y1="1" x2="19.799" y2="19.3848" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+      <line x1="1" y1="-1" x2="27" y2="-1" transform="matrix(-0.707107 0.707107 0.707107 0.707107 20.7988 1)" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+    </svg>
+  </button>
+</div>

@@ -82,3 +82,61 @@
     </div>
   </div>
 </div>
+
+{% render 'mega-menu', section: section %}
+
+<!-- Section Settings -->
+{% schema %}
+{
+  "name": "header",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "A New Season, A Softer Rhythm."
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "CTA",
+      "default": "Shop the Edit"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Each drop is shaped by timeless silhouettes, elevated materials, and a touch of understated luxury, made to accompany you through every chapter of your day."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "image"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "info": "Select the menu to display in the mega menu."
+    },
+    {
+      "type": "link_list",
+      "id": "legal_menu",
+      "label": "Legal Menu",
+      "info": "Select the legal menu to display in the mega menu."
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "header"
+    }
+  ]
+}
+{% endschema %}
