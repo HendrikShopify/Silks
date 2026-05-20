@@ -74,7 +74,23 @@
 
         <div class="flex flex-col gap-[2rem] mt-[75px] md:mt-[150px]">
           <div class="text-neutral-200">
-            {% render 'card-product__price', product: product %}
+            {%- liquid
+              assign variant = product.selected_or_first_available_variant
+              assign price = variant.price | money
+              assign compare_at_price = variant.compare_at_price | money
+              if variant.compare_at_price > variant.price
+                assign on_sale = true
+              endif
+            -%}
+
+            <div data-replace="price" class="flex flex-row gap-2">
+              {%- if on_sale -%}
+                <span class="sr-only">regular price</span>
+                <s class="text-small">{{ compare_at_price }}</s>
+                <span class="sr-only">sale price</span>
+              {%- endif -%}
+              <span class="text-small">{{ price }}</span>
+            </div>
           </div>
           {% render 'product__variant-picker', product: product, product_form_id: product_form_id %}
           {%- render 'product__form', product: product, product_form_id: product_form_id, section_id: section.id -%}
