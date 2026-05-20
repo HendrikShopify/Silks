@@ -7,6 +7,8 @@ class VariantSelects extends HTMLElement {
     this.addEventListener('change', (event) => {
       const target = this.getInputForEventTarget(event.target);
 
+      document.dispatchEvent(new Event('loading:start'));
+
       const customEvent = new CustomEvent('optionValueSelectionChange', {
         detail: {
           event,
@@ -18,6 +20,8 @@ class VariantSelects extends HTMLElement {
       });
 
       this.dispatchEvent(customEvent);
+
+
     });
   }
 

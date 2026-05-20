@@ -303,8 +303,10 @@ select {
 }
 
 .variant__swatch-disabled {
-    @apply opacity-50 cursor-not-allowed relative before:content-[''] before:absolute before:w-full before:bg-black before:h-[1px] before:-rotate-45
+    @apply opacity-50 cursor-not-allowed 
 }
+
+/* relative before:content-[''] before:absolute before:w-full before:bg-black before:h-[1px] before:-rotate-45 */
 
 .variant__radio-disabled {
     @apply opacity-50 cursor-not-allowed relative before:content-[''] before:absolute before:w-full before:left-0 before:scale-x-150 before:top-1/2 before:right-0 before:border-t before:border-inherit before:rotate-[-15deg]

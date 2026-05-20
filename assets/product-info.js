@@ -30,15 +30,16 @@ if (!customElements.get('product-info')) {
       }
 
       resetProductFormState() {
-        this.productForm?.toggleSubmitButton(false);
+        this.productForm?.toggleSubmitButton(true);
         this.productForm?.handleErrorMessage();
       }
 
       renderProductInfo({ requestUrl, targetId, callback }) {
         this.abortController?.abort();
         this.abortController = new AbortController();
+        const controller = this.abortController;
 
-        fetch(requestUrl, { signal: this.abortController.signal })
+        fetch(requestUrl, { signal: controller.signal })
           .then((response) => response.text())
           .then((htmlString) => {
             this.pendingRequestUrl = null;
@@ -50,6 +51,10 @@ if (!customElements.get('product-info')) {
           })
           .catch((error) => {
             if (error.name !== 'AbortError') console.error(error);
+          })
+          .finally(() => {
+            if (this.abortController !== controller) return;
+            document.dispatchEvent(new Event('loading:end'));
           });
       }
 
