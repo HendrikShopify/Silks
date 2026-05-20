@@ -13,9 +13,20 @@
   "sections": {
     "footer": {
       "type": "footer",
+      "blocks": {
+        "menu_x67HnD": {
+          "type": "Menu",
+          "settings": {
+            "link_list": ""
+          }
+        }
+      },
+      "block_order": [
+        "menu_x67HnD"
+      ],
       "settings": {
         "description": "A refined collection designed to elevate the everyday. Each piece blends performance and elegance, made to move effortlessly with you, wherever the day takes you.",
-        "bg": "shopify://shop_images/ProductItem-1_b1e07f85-e260-4a35-94f6-1619909581ce.jpg",
+        "bg": "shopify://shop_images/bg-footer.jpg",
         "legal_links": "footer"
       }
     }
