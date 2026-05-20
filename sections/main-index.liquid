@@ -1,6 +1,6 @@
 <div class="flex justify-between items-stretch pt-[15px] sm:pt-[15px] md:pt-10 pr-[15px] sm:pr-[15px] md:pr-10 pb-[15px] sm:pb-[15px] md:pb-10 pl-[15px] sm:pl-[15px] md:pl-10 h-screen min-h-screen">
   <div class="relative rounded-4xl size-full overflow-hidden">
-    <div class="flex relative flex-col lg:flex-row flex-nowrap lg:flex-nowrap gap-x-8 sm:gap-x-10 lg:gap-x-45 gap-y-8 sm:gap-y-10 lg:gap-y-45 justify-end lg:justify-between items-end lg:items-end pt-8 sm:pt-[90px] pr-8 sm:pr-14 lg:pr-[ clamp(40px, 10vw, 170px)] pb-8 sm:pb-14 lg:pb-[90px] pl-8 sm:pl-14 lg:pl-[ clamp(40px, 10vw, 170px)] h-full z-[1] overflow-auto">
+    <div class="flex relative flex-col lg:flex-row flex-nowrap lg:flex-nowrap gap-x-8 sm:gap-x-10 lg:gap-x-45 gap-y-8 sm:gap-y-10 lg:gap-y-45 justify-end lg:justify-between items-end lg:items-end pt-8 sm:pt-[90px] pr-8 sm:pr-14 lg:pr-[clamp(40px,_10vw,_170px)] pb-8 sm:pb-14 lg:pb-[90px] pl-8 sm:pl-14 lg:pl-[clamp(40px,_10vw,_170px)] h-full z-[1] text-neutral-100 overflow-auto">
       <div class="max-w-[830px]">
         <h1 class="text-[35px] md:text-[clamp(55px,_4vw,_90px)] leading-[1.2] font-playfair">
           {{ section.settings.title }}
@@ -8,7 +8,7 @@
       </div>
       <div class="flex flex-col flex-nowrap gap-x-6 sm:gap-x-[35px] gap-y-6 sm:gap-y-[35px] justify-end lg:justify-end items-start lg:items-end w-full lg:w-auto max-w-none lg:max-w-[290px] text-left lg:text-right">
         <p>{{ section.settings.description }}</p>
-        <a class="btn-secondary" href="{{ section.settings.link }}"
+        <a class="btn-secondary" href="" href="{{ section.settings.link }}"
           ><span>{{ section.settings.cta }}</span
           ><span class="flex justify-center items-center p-0 rounded-[100vw] size-[31px] text-neutral-100 bg-neutral-300">
             <svg
@@ -25,17 +25,21 @@
         ></a>
       </div>
     </div>
-    <img
-      class="absolute inset-[0%] size-full object-cover"
-      src="{{ section.settings.image | image_url: width: 1700 }}"
-      srcset="
-        {{ section.settings.image | image_url: width: 425 }} 425w,
-        {{ section.settings.image | image_url: width: 850 }} 850w,
-        {{ section.settings.image | image_url: width: 1139 }} 1139w,
-        {{ section.settings.image | image_url: width: 1700 }} 1700w
-      "
-      sizes="(max-width: 850px) 425px, (max-width: 1139px) 850px, (max-width: 1700px) 1139px, 1700px"
-    >
+
+    {{
+      section.settings.image
+      | image_url: width: 2000
+      | image_tag:
+        loading: 'eager',
+        class: 'absolute inset-[0%] size-full object-cover',
+        fetchpriority: 'high',
+        widths: '320, 480, 640, 768, 1024, 1200, 1700, 2000',
+        sizes: '(max-width: 768px) 50vw, (max-width: 1024px) 100vw, (max-width: 1700px) 100vw, 2000px',
+        alt: section.settings.image.alt
+    }}
+    <div
+      class="flex absolute inset-0 flex-col justify-start md:justify-end items-start md:items-start mt-auto sm:mt-0 pt-8 sm:pt-10 lg:pt-12 pr-8 sm:pr-10 lg:pr-5 pb-8 sm:pb-10 lg:pb-[70px] pl-8 sm:pl-10 lg:pl-25 h-auto md:h-full text-neutral-400 [background-image:linear-gradient(180deg,_hsla(0,_0.00%,_0.00%,_0.00),_rgba(59,_50,_43,_0.19)_16%,_rgba(59,_50,_43,_0.61)_62%,_#3b322b)] opacity-90"
+    ></div>
   </div>
 </div>
 

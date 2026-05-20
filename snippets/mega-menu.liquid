@@ -1,12 +1,21 @@
-<div class="fixed inset-0 bg-neutral-100 z-100" role="dialog" aria-modal="true" aria-labelledby="mega-menu-title">
-  <div class="flex flex-col md:flex-row flex-nowrap justify-start md:justify-between items-stretch w-full h-screen md:h-full bg-neutral-100 overflow-scroll md:overflow-visible overflow-x-hidden overflow-y-hidden">
+<script src="{{ 'mega-menu.js' | asset_url }}" defer="defer"></script>
+
+<mega-menu id="mega-menu" class="fixed inset-0 z-100 bg-neutral-100 hidden">
+  <div
+    class="flex flex-col md:flex-row flex-nowrap justify-start md:justify-between items-stretch w-full h-full overflow-scroll md:overflow-visible overflow-x-hidden overflow-y-hidden"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="mega-menu-title"
+    data-mega-menu-panel
+    data-mega-menu-open="false"
+  >
     <div class="flex flex-col basis-auto grow-0 shrink-0 md:shrink justify-start md:justify-end items-stretch md:items-stretch pt-[15px] sm:pt-10 md:pt-[105px] pr-[15px] sm:pr-10 md:pr-0 pb-[15px] sm:pb-10 md:pb-10 pl-[15px] sm:pl-10 md:pl-[7vw]">
       <div class="mb-15 md:mb-auto"><img class="max-w-30" src="{{ 'logo.svg' | asset_url }}"></div>
       <div class="mb-10 sm:mb-[85px]" aria-label="Main">
-        <accordion-list id="">
-          {% for link in linklists['main-menu'].links %}
+        <accordion-list>
+          {% for link in section.settings.menu.links %}
             {% case link.levels %}
-              {% when 1 %}
+              {% when 0 %}
                 <div class="mb-[22.5px] md:mb-[45px]">
                   <a
                     class="inline-flex gap-[15px] mb-3 border-none text-xl bg-[none] cursor-pointer"
@@ -16,10 +25,10 @@
                   </a>
                 </div>
 
-              {% when 2 %}
+              {% when 1 %}
                 <div class="mb-[22.5px] md:mb-[45px]" data-accordion-item>
                   <button
-                    class="inline-flex gap-[15px] mb-3 border-none text-xl bg-[none] cursor-pointer"
+                    class="inline-flex gap-[15px] mb-3 border-none text-xl bg-[none] cursor-pointer group"
                     aria-expanded="false"
                     aria-controls="menu-{{ forloop.index }}"
                     data-accordion-trigger
@@ -27,7 +36,7 @@
                     <span class="font-playfair">{{ link.title }}</span>
 
                     <svg
-                      class="w-[7px]"
+                      class="w-[7px] transition-transform duration-200 group-aria-expanded:rotate-180"
                       xmlns="http://www.w3.org/2000/svg"
                       width="100%"
                       viewBox="0 0 8 5"
@@ -45,7 +54,7 @@
                     </svg>
                   </button>
 
-                  <div class="h-0 overflow-hidden">
+                  <div data-accordion-content>
                     <ul
                       id="menu-{{ forloop.index }}"
                       class="flex flex-col flex-nowrap gap-[10px]"
@@ -65,13 +74,19 @@
           {% endfor %}
         </accordion-list>
       </div>
-      <div>
-        <ul class="flex gap-4 w-full">
-          <li>
-            <a><span>Privacy policy</span></a>
-          </li>
-        </ul>
-      </div>
+      {%- if section.settings.legal_menu != blank -%}
+        <div>
+          <ul class="flex flex-wrap gap-4 w-full">
+            {%- for link in section.settings.legal_menu.links -%}
+              <li>
+                <a href="{{ link.url }}"
+                  ><span>{{ link.title }}</span></a
+                >
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
     </div>
     <div class="flex sm:block relative basis-[0%] grow shrink justify-start items-end sm:items-stretch pt-[15px] md:pt-10 pr-[15px] md:pr-10 pb-[15px] md:pb-10 pl-[15px] md:pl-10 max-w-225">
       <div class="relative rounded-[24px] w-full h-auto md:h-full overflow-x-hidden overflow-y-hidden">
@@ -87,7 +102,10 @@
           sizes="(max-width: 450px) 225px, (max-width: 603px) 450px, (max-width: 900px) 603px, 900px"
         >
         <div class="flex relative inset-0 flex-col justify-start md:justify-end items-start md:items-start mt-auto sm:mt-0 pt-8 sm:pt-10 lg:pt-12 pr-8 sm:pr-10 lg:pr-5 pb-8 sm:pb-10 lg:pb-[70px] pl-8 sm:pl-10 lg:pl-25 h-auto md:h-full text-neutral-400 [background-image:radial-gradient(circle_farthest-corner_at_100%_0%,_hsla(0,_0.00%,_0.00%,_0.00),_rgba(59,_50,_43,_0.19)_16%,_rgba(59,_50,_43,_0.61)_50%,_#3b322b)] opacity-90">
-          <h2 class="mb-5 md:mb-10 max-w-[530px] text-xl md:text-7xl leading-[1.2em] font-playfair">
+          <h2
+            id="mega-menu-title"
+            class="mb-5 md:mb-10 max-w-[530px] text-xl md:text-7xl leading-[1.2em] font-playfair"
+          >
             {{ section.settings.title }}
           </h2>
           <p class="mb-[15px] md:mb-[30px] max-w-105 text-neutral-100">{{ section.settings.description }}</p>
@@ -127,4 +145,4 @@
       <line x1="1" y1="-1" x2="27" y2="-1" transform="matrix(-0.707107 0.707107 0.707107 0.707107 20.7988 1)" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
     </svg>
   </button>
-</div>
+</mega-menu>

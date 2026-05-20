@@ -29,16 +29,13 @@
     ></a>
     <div>
       <ul class="hidden md:flex justify-center items-center">
-        <li>
-          <a class="block pr-[10px] pl-[10px] h-full">
-            <div>All products</div>
-          </a>
-        </li>
-        <li>
-          <a class="block pr-[10px] pl-[10px] h-full">
-            <div>Collections</div>
-          </a>
-        </li>
+        {% for link in linklists[section.settings.header_menu].links %}
+          <li>
+            <a class="block pr-[10px] pl-[10px] h-full" href="{{ link.url }}">
+              <div>{{ link.title }}</div>
+            </a>
+          </li>
+        {% endfor %}
       </ul>
     </div>
     <div class="flex gap-x-3 md:gap-x-10 gap-y-3 md:gap-y-10 justify-end items-center">
@@ -58,7 +55,13 @@
         </a>
         {% render 'header__cart' %}
       </div>
-      <button class="inline-flex relative gap-x-3 sm:gap-x-5 gap-y-3 sm:gap-y-5 justify-start items-center pt-[5px] sm:pt-[10px] pr-[5px] sm:pr-[10px] pb-[5px] sm:pb-[10px] pl-[15px] sm:pl-[30px] border border-neutral-300 border-solid rounded-[200px] whitespace-nowrap bg-neutral-100">
+      <button
+        type="button"
+        class="inline-flex relative gap-x-3 sm:gap-x-5 gap-y-3 sm:gap-y-5 justify-start items-center pt-[5px] sm:pt-[10px] pr-[5px] sm:pr-[10px] pb-[5px] sm:pb-[10px] pl-[15px] sm:pl-[30px] border border-neutral-300 border-solid rounded-[200px] whitespace-nowrap bg-neutral-100 cursor-pointer"
+        data-open-menu
+        aria-expanded="false"
+        aria-controls="mega-menu"
+      >
         <span class="text-sm sm:text-inherit">Menu</span
         ><span class="flex justify-center items-center p-0 rounded-[100vw] size-[31px] text-neutral-100 bg-neutral-300">
           <svg
@@ -118,6 +121,12 @@
       "type": "image_picker",
       "id": "image",
       "label": "image"
+    },
+    {
+      "type": "link_list",
+      "id": "header_menu",
+      "label": "Header Menu",
+      "info": "Select the menu to display in the header."
     },
     {
       "type": "link_list",

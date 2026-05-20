@@ -83,9 +83,7 @@
 
       {% for link in menu.links %}
         <li>
-          <a>
-            <div>{{ link.title }}</div>
-          </a>
+          <a href="{{ link.url }}">{{ link.title }}</a>
         </li>
       {% endfor %}
     </ul>
