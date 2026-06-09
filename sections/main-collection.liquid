@@ -67,7 +67,7 @@
   <div class="container">
     <div class="mt-10 lg:mt-20 pb-25 lg:pb-50">
       <div>
-        <ul class="grid grid-cols-[repeat(auto-fit,_minmax(20rem,_1fr))] grid-rows-[auto_auto] auto-cols-[1fr] gap-5 w-full">
+        <ul class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-rows-[auto] auto-cols-[1fr] gap-5 w-full">
           {% for product in collection.products %}
             <li>
               {% render 'card-product', product: product %}
