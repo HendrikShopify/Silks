@@ -52,7 +52,7 @@
         {% for block in section.blocks %}
           {% if block.type == 'Menu' %}
             <div>
-              <h2 class="mb-[25px] text-xl font-playfair">{{ block.settings.link_list.links.title }}</h2>
+              <h2 class="mb-[25px] text-xl font-playfair">{{ block.settings.link_list.title }}</h2>
               <ul class="flex flex-col flex-nowrap gap-[11px]">
                 {% for link in block.settings.link_list.links %}
                   <li>
