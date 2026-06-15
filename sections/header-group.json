@@ -20,8 +20,8 @@
         "description": "Each drop is shaped by timeless silhouettes, elevated materials, and a touch of understated luxury, made to accompany you through every chapter of your day.",
         "image": "shopify://shop_images/ProductItem-1_b1e07f85-e260-4a35-94f6-1619909581ce.jpg",
         "header_menu": "",
-        "menu": "",
-        "legal_menu": ""
+        "menu": "our-collections",
+        "legal_menu": "legal-footer"
       }
     }
   },
