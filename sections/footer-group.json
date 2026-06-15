@@ -14,20 +14,41 @@
     "footer": {
       "type": "footer",
       "blocks": {
-        "menu_x67HnD": {
+        "menu_X87qbE": {
           "type": "Menu",
           "settings": {
-            "link_list": ""
+            "link_list": "shop"
+          }
+        },
+        "menu_9WLiWU": {
+          "type": "Menu",
+          "settings": {
+            "link_list": "explore"
+          }
+        },
+        "menu_paeb7J": {
+          "type": "Menu",
+          "settings": {
+            "link_list": "service"
+          }
+        },
+        "menu_bPifBX": {
+          "type": "Menu",
+          "settings": {
+            "link_list": "socials"
           }
         }
       },
       "block_order": [
-        "menu_x67HnD"
+        "menu_X87qbE",
+        "menu_9WLiWU",
+        "menu_paeb7J",
+        "menu_bPifBX"
       ],
       "settings": {
         "description": "A refined collection designed to elevate the everyday. Each piece blends performance and elegance, made to move effortlessly with you, wherever the day takes you.",
         "bg": "shopify://shop_images/bg-footer.jpg",
-        "legal_links": ""
+        "legal_links": "legal-footer"
       }
     }
   },
