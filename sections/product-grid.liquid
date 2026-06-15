@@ -7,7 +7,7 @@
       <p class="max-w-[490px]">{{ section.settings.description }}</p>
     </div>
     <div>
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-rows-[auto] auto-cols-[1fr] gap-5 w-full">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-rows-[auto] auto-cols-[1fr] gap-5 w-full">
         {% if section.settings.collection_handle %}
           {% for product in collections[section.settings.collection_handle].products %}
             {% render 'card-product', product: product %}
